@@ -19,6 +19,7 @@ public class AirportFrame extends JFrame
 	{
 
 	private static final long serialVersionUID = 1L;
+
 	// liste d'avion à chaque endroits
 	private List<Avion> avionOnAirArray;
 	private List<Avion> avionLandingArray;
@@ -27,7 +28,6 @@ public class AirportFrame extends JFrame
 	private List<Avion> avionOnAirLeaveArray;
 
 	// images d'avion
-
 	private ArrayList<JLabel> listTerm;
 	private ArrayList<JLabel> listArr;
 	private ArrayList<JLabel> listDep;
@@ -79,6 +79,7 @@ public class AirportFrame extends JFrame
 			landPanel.add(imgLandingLabel);
 			landPanel.add(new JLabel("", Tools.scaleImage(imgRoad, 50, 50), SwingConstants.CENTER));
 			}
+
 		landPanel.add(new JLabel());
 		landPanel.add(nbLandingLabel);
 		airportPanel.add(landPanel);
@@ -104,6 +105,7 @@ public class AirportFrame extends JFrame
 			takeOffPanel.add(new JLabel("", Tools.scaleImage(imgRoad, 50, 50), SwingConstants.CENTER));
 			takeOffPanel.add(imgTakeOffLabel);
 			}
+
 		takeOffPanel.add(nbTakeOffLabel);
 		airportPanel.add(takeOffPanel);
 
@@ -119,8 +121,8 @@ public class AirportFrame extends JFrame
 			listTerm.add(imgParkLabel);
 			imgParkLabel.setBorder(BorderFactory.createLineBorder(Color.black));
 			parkPanel.add(imgParkLabel);
-
 			}
+
 		panel.add(parkPanel, BorderLayout.SOUTH);
 
 		JPanel onAirPanel = new JPanel();
@@ -149,5 +151,48 @@ public class AirportFrame extends JFrame
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Labo 3 - Gestion d'un aéroport");
+		}
+
+	public void updateArrive(Avion avion)
+		{
+		avionOnAirArray.add(avion);
+		nbOnAirLabel.setText("nb avion en air (arrive) : " + avionOnAirArray.size());
+		}
+
+	public void updateAtterrit(Avion avion)
+		{
+		avionOnAirArray.remove(avion);
+		avionLandingArray.add(avion);
+		nbLandingLabel.setText("nb avion en approche : " + avionLandingArray.size());
+		nbOnAirLabel.setText("nb avion en air (arrive) : " + avionOnAirArray.size());
+
+		for(int i = 0; i < nbPisteArr; i++)
+			{
+			if (i < avionLandingArray.size())
+				{
+				listArr.get(i).setVisible(true);
+				listArr.get(i).setText(avion.getCode());
+				}
+			else
+				{
+				listArr.get(i).setVisible(false);
+				}
+			}
+		}
+
+	public void updatePark(Avion avion)
+		{
+		avionLandingArray.remove(avion);
+		avionTermArray.add(avion);
+		}
+
+	public void updateDecolle()
+		{
+
+		}
+
+	public void updatePart()
+		{
+
 		}
 	}

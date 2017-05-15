@@ -38,9 +38,58 @@ public class Avion implements Runnable
 		nbPlace = _nbPlace;
 		}
 
+	@Override
 	public void run()
 		{
+		try
+			{
+			Thread.sleep(2000);
+			arrive();
+			Thread.sleep(2000);
+			atterit();
+			Thread.sleep(2000);
+			parque();
+			Thread.sleep(2000);
+			decolle();
+			Thread.sleep(2000);
+			part();
+			}
+		catch (InterruptedException e)
+			{
+			e.printStackTrace();
+			}
+		}
 
+	private void arrive() throws InterruptedException
+		{
+		airArr.put(this);
+		airportFrame.updateArrive(this);
+		}
+
+	private void atterit() throws InterruptedException
+		{
+		tarmacLand.put(this);
+		airArr.remove(this);
+		airportFrame.updateAtterrit(this);
+		}
+
+	private void parque() throws InterruptedException
+		{
+		terminal.put(this);
+		tarmacLand.remove(this);
+		airportFrame.updatePark(this);
+		}
+
+	private void decolle() throws InterruptedException
+		{
+		tarmacTakeOff.put(this);
+		terminal.remove(this);
+		}
+
+	private void part() throws InterruptedException
+		{
+		airDep.put(this);
+		tarmacTakeOff.remove(this);
 		}
 
 	public String getCode()
