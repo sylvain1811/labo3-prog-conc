@@ -15,7 +15,7 @@ public class Main
 		int nbAvion = 20; //nombre d'avion
 		int nbPisteArr = 2; //pistes d'atterrisage
 		int nbPisteDep = 2; //pistes de depart
-		int nbPlace = 4; //parking
+		int nbPlace = 2; //parking
 
 		AirportFrame airportFrame = new AirportFrame(nbPisteArr, nbPisteDep, nbPlace, nbAvion);
 
@@ -32,7 +32,8 @@ public class Main
 			}
 
 		airportFrame.setVisible(true);
-		airportFrame.pack();
+		airportFrame.setSize(1000,800);
+		//airportFrame.pack();
 
 		}
 

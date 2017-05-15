@@ -153,46 +153,102 @@ public class AirportFrame extends JFrame
 		this.setTitle("Labo 3 - Gestion d'un aéroport");
 		}
 
-	public void updateArrive(Avion avion)
+	public synchronized void updateArrive(Avion avion)
 		{
 		avionOnAirArray.add(avion);
 		nbOnAirLabel.setText("nb avion en air (arrive) : " + avionOnAirArray.size());
 		}
 
-	public void updateAtterrit(Avion avion)
+	public synchronized void updateAtterrit(Avion avion)
 		{
 		avionOnAirArray.remove(avion);
 		avionLandingArray.add(avion);
 		nbLandingLabel.setText("nb avion en approche : " + avionLandingArray.size());
 		nbOnAirLabel.setText("nb avion en air (arrive) : " + avionOnAirArray.size());
 
+		updateLandingLabel();
+		}
+
+	public synchronized void updatePark(Avion avion)
+		{
+		avionLandingArray.remove(avion);
+		avionTermArray.add(avion);
+		nbLandingLabel.setText("nb avion en approche : " + avionLandingArray.size());
+		nbTermLabel.setText("nb avion au terminal : " + avionTermArray.size());
+
+		updateLandingLabel();
+		updateTerminalLabel();
+		}
+
+	public synchronized void updateDecolle(Avion avion)
+		{
+		avionTermArray.remove(avion);
+		avionTakeOffArray.add(avion);
+		nbTermLabel.setText("nb avion au terminal : " + avionTermArray.size());
+		nbTakeOffLabel.setText("nb avion au départ : " + avionTakeOffArray.size());
+
+		updateTerminalLabel();
+		updateTakeOfLabel();
+		}
+
+	public synchronized void updatePart(Avion avion)
+		{
+		avionTakeOffArray.remove(avion);
+		avionOnAirLeaveArray.add(avion);
+		nbTakeOffLabel.setText("nb avion au départ : " + avionTakeOffArray.size());
+		nbOnAirLeaveLabel.setText("nb avion en air (depart) : " + avionOnAirLeaveArray.size());
+		updateTakeOfLabel();
+		}
+
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+
+	private void updateTakeOfLabel()
+		{
+		for(int i = 0; i < nbPisteDep; i++)
+			{
+			if (i < avionTakeOffArray.size())
+				{
+				listDep.get(i).setVisible(true);
+				listDep.get(i).setText(avionTakeOffArray.get(i).getCode());
+				}
+			else
+				{
+				listDep.get(i).setVisible(false);
+				}
+			}
+		}
+
+	private void updateTerminalLabel()
+		{
+		for(int i = 0; i < nbPlace; i++)
+			{
+			if (i < avionTermArray.size())
+				{
+				listTerm.get(i).setVisible(true);
+				listTerm.get(i).setText(avionTermArray.get(i).getCode());
+				}
+			else
+				{
+				listTerm.get(i).setVisible(false);
+				}
+			}
+		}
+
+	private void updateLandingLabel()
+		{
 		for(int i = 0; i < nbPisteArr; i++)
 			{
 			if (i < avionLandingArray.size())
 				{
 				listArr.get(i).setVisible(true);
-				listArr.get(i).setText(avion.getCode());
+				listArr.get(i).setText(avionLandingArray.get(i).getCode());
 				}
 			else
 				{
 				listArr.get(i).setVisible(false);
 				}
 			}
-		}
-
-	public void updatePark(Avion avion)
-		{
-		avionLandingArray.remove(avion);
-		avionTermArray.add(avion);
-		}
-
-	public void updateDecolle()
-		{
-
-		}
-
-	public void updatePart()
-		{
-
 		}
 	}

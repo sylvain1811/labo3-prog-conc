@@ -1,6 +1,7 @@
 
 package airport.com;
 
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 //represente l'avion
 
@@ -43,15 +44,15 @@ public class Avion implements Runnable
 		{
 		try
 			{
-			Thread.sleep(2000);
+			//long wait = 500;
 			arrive();
-			Thread.sleep(2000);
+			Thread.sleep(nextRandomTime());
 			atterit();
-			Thread.sleep(2000);
+			Thread.sleep(nextRandomTime());
 			parque();
-			Thread.sleep(2000);
+			Thread.sleep(nextRandomTime());
 			decolle();
-			Thread.sleep(2000);
+			Thread.sleep(nextRandomTime());
 			part();
 			}
 		catch (InterruptedException e)
@@ -60,41 +61,60 @@ public class Avion implements Runnable
 			}
 		}
 
-	private void arrive() throws InterruptedException
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+
+	private synchronized void arrive() throws InterruptedException
 		{
 		airArr.put(this);
 		airportFrame.updateArrive(this);
 		}
 
-	private void atterit() throws InterruptedException
+	private synchronized void atterit() throws InterruptedException
 		{
 		tarmacLand.put(this);
 		airArr.remove(this);
 		airportFrame.updateAtterrit(this);
 		}
 
-	private void parque() throws InterruptedException
+	private synchronized void parque() throws InterruptedException
 		{
 		terminal.put(this);
 		tarmacLand.remove(this);
 		airportFrame.updatePark(this);
 		}
 
-	private void decolle() throws InterruptedException
+	private synchronized void decolle() throws InterruptedException
 		{
 		tarmacTakeOff.put(this);
 		terminal.remove(this);
+		airportFrame.updateDecolle(this);
 		}
 
-	private void part() throws InterruptedException
+	private synchronized void part() throws InterruptedException
 		{
 		airDep.put(this);
 		tarmacTakeOff.remove(this);
+		airportFrame.updatePart(this);
 		}
 
 	public String getCode()
 		{
 		return codePlane;
 		}
+
+	private long nextRandomTime()
+		{
+		long ret = (long)random.nextInt() % 2000;
+		if (ret < 0) { return ret * (-1) + 1000; }
+		return ret + 1000;
+		}
+
+	/*------------------------------------------------------------------*\
+	|*							Attributs Private						*|
+	\*------------------------------------------------------------------*/
+
+	private static Random random = new Random();
 
 	}
