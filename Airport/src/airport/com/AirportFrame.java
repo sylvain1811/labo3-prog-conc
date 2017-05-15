@@ -153,50 +153,75 @@ public class AirportFrame extends JFrame
 		this.setTitle("Labo 3 - Gestion d'un aéroport");
 		}
 
+	// (1)
 	public synchronized void updateArrive(Avion avion)
 		{
+		// On ajoute l'avion dans la list d'arrivée (elle est synchronisée avec la blocking queue)
 		avionOnAirArray.add(avion);
+
+		// On met à jour le compteur
 		nbOnAirLabel.setText("nb avion en air (arrive) : " + avionOnAirArray.size());
 		}
 
+	// (2)
 	public synchronized void updateAtterrit(Avion avion)
 		{
+		// On retire l'avion de la liste d'arrivée pour le mettre dans la liste d'atterrissage (syhchrone avec les blocking queue correspondantes)
 		avionOnAirArray.remove(avion);
 		avionLandingArray.add(avion);
+
+		// On met à jour les compteurs
 		nbLandingLabel.setText("nb avion en approche : " + avionLandingArray.size());
 		nbOnAirLabel.setText("nb avion en air (arrive) : " + avionOnAirArray.size());
 
+		// On met à jour les images des avions entrain d'atterrir
 		updateLandingLabel();
 		}
 
+	// (3)
 	public synchronized void updatePark(Avion avion)
 		{
+		// On retire l'avion de la liste d'atterrissage pour le mettre dans la liste du terminal (syhchrone avec les blocking queue correspondantes)
 		avionLandingArray.remove(avion);
 		avionTermArray.add(avion);
+
+		// On met à jour les compteurs
 		nbLandingLabel.setText("nb avion en approche : " + avionLandingArray.size());
 		nbTermLabel.setText("nb avion au terminal : " + avionTermArray.size());
 
+		// On mets à jour les images des avions entrain d'atterrir et ceux qui se garent
 		updateLandingLabel();
 		updateTerminalLabel();
 		}
 
+	// (4)
 	public synchronized void updateDecolle(Avion avion)
 		{
+		// On retire l'avion de la liste du terminal pour le mettre dans la liste du décollage (syhchrone avec les blocking queue correspondantes)
 		avionTermArray.remove(avion);
 		avionTakeOffArray.add(avion);
+
+		// On met à jour les compteurs
 		nbTermLabel.setText("nb avion au terminal : " + avionTermArray.size());
 		nbTakeOffLabel.setText("nb avion au départ : " + avionTakeOffArray.size());
 
+		// On mets à jour les images des avions parqués et ceux qui décollent
 		updateTerminalLabel();
 		updateTakeOfLabel();
 		}
 
+	// (5)
 	public synchronized void updatePart(Avion avion)
 		{
+		// On retire l'avion de la liste du décollage pour le mettre dans la liste de ceux qui partent (syhchrone avec les blocking queue correspondantes)
 		avionTakeOffArray.remove(avion);
 		avionOnAirLeaveArray.add(avion);
+
+		// On met à jour les compteurs
 		nbTakeOffLabel.setText("nb avion au départ : " + avionTakeOffArray.size());
 		nbOnAirLeaveLabel.setText("nb avion en air (depart) : " + avionOnAirLeaveArray.size());
+
+		// On met é jour les images des avions qui décollent
 		updateTakeOfLabel();
 		}
 
@@ -204,6 +229,7 @@ public class AirportFrame extends JFrame
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
+	// On met x images de TakeOf visible, avec x le nombre d'avion dans la liste takeOf
 	private void updateTakeOfLabel()
 		{
 		for(int i = 0; i < nbPisteDep; i++)
@@ -220,6 +246,7 @@ public class AirportFrame extends JFrame
 			}
 		}
 
+	// On met x images de terminal visible, avec x le nombre d'avion dans la liste terminal
 	private void updateTerminalLabel()
 		{
 		for(int i = 0; i < nbPlace; i++)
@@ -236,6 +263,7 @@ public class AirportFrame extends JFrame
 			}
 		}
 
+	// On met x images de Landing visible, avec x le nombre d'avion dans la liste landing
 	private void updateLandingLabel()
 		{
 		for(int i = 0; i < nbPisteArr; i++)

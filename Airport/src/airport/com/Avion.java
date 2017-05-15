@@ -44,15 +44,23 @@ public class Avion implements Runnable
 		{
 		try
 			{
-			//long wait = 500;
+			// (1) L'avion arrive
 			arrive();
 			Thread.sleep(nextRandomTime());
+
+			// (2) Puis il atterit sur une piste
 			atterit();
 			Thread.sleep(nextRandomTime());
+
+			// (3) Puis il se parque
 			parque();
 			Thread.sleep(nextRandomTime());
+
+			// (4) Et décolle
 			decolle();
 			Thread.sleep(nextRandomTime());
+
+			// (5) Et fini par partir
 			part();
 			}
 		catch (InterruptedException e)
@@ -65,37 +73,52 @@ public class Avion implements Runnable
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
+	// (1)
 	private synchronized void arrive() throws InterruptedException
 		{
+		// On met l'avion dans la blocking queue d'arrivée
 		airArr.put(this);
+		// Puis on met à jour la JFrame
 		airportFrame.updateArrive(this);
 		}
 
+	// (2)
 	private synchronized void atterit() throws InterruptedException
 		{
+		// On met l'avion dans la blocking queue d'atterrissage et on le retire de celle d'arrivée
 		tarmacLand.put(this);
 		airArr.remove(this);
+		// Puis on met à jour la JFrame
 		airportFrame.updateAtterrit(this);
 		}
 
+	// (3)
 	private synchronized void parque() throws InterruptedException
 		{
+		// On met l'avion dans la blocking queue du terminal et on le retire de celle d'atterrissage
 		terminal.put(this);
 		tarmacLand.remove(this);
+		// Puis on met à jour la JFrame
 		airportFrame.updatePark(this);
 		}
 
+	// (4)
 	private synchronized void decolle() throws InterruptedException
 		{
+		// On met l'avion dans la blocking queue du décollage et on le retire de celle du terminal
 		tarmacTakeOff.put(this);
 		terminal.remove(this);
+		// Puis on met à jour la JFrame
 		airportFrame.updateDecolle(this);
 		}
 
+	// (5)
 	private synchronized void part() throws InterruptedException
 		{
+		// On met l'avion dans la blocking queue de air départ et on le retire de celle de décollage
 		airDep.put(this);
 		tarmacTakeOff.remove(this);
+		// Puis on met à jour la JFrame
 		airportFrame.updatePart(this);
 		}
 
@@ -104,6 +127,7 @@ public class Avion implements Runnable
 		return codePlane;
 		}
 
+	// Génère un nombre aléatoire pour la représentation d'une activité
 	private long nextRandomTime()
 		{
 		long ret = (long)random.nextInt() % 2000;
