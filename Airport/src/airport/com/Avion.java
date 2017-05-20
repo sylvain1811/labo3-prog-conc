@@ -41,10 +41,12 @@ public class Avion implements Runnable
 		nbPlace = _nbPlace;
 		}
 
+	// Change l'état du booléen stop, si il est à false, on notifie tous les avions en attente pour les faire redémarrer
 	public void setStop(boolean stop)
 		{
 		this.stop = stop;
 
+		// Utilisation de la JFrame comme moniteur
 		synchronized (airportFrame)
 			{
 			if (!stop)
@@ -95,12 +97,14 @@ public class Avion implements Runnable
 	// Vérifier l'état du programme (en pause ou non)
 	private void checkStop()
 		{
+		// Utilisation de la JFrame comme moniteur
 		synchronized (airportFrame)
 			{
 			while(stop)
 				{
 				try
 					{
+					// Si stop est à true, alors on bloque l'avion (wait)
 					airportFrame.wait();
 					}
 				catch (InterruptedException e)

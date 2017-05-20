@@ -157,27 +157,8 @@ public class AirportFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 				{
-				for(Avion avion:avionOnAirArray)
-					{
-					avion.setStop(false);
-					}
-
-				for(Avion avion:avionLandingArray)
-					{
-					avion.setStop(false);
-					}
-				for(Avion avion:avionTermArray)
-					{
-					avion.setStop(false);
-					}
-				for(Avion avion:avionTakeOffArray)
-					{
-					avion.setStop(false);
-					}
-				for(Avion avion:avionOnAirLeaveArray)
-					{
-					avion.setStop(false);
-					}
+				// Redémarrage des avions (l'animation reprend dans l'état où elle s'est arrêtée)
+				stopAvion(false);
 				}
 			});
 
@@ -187,28 +168,10 @@ public class AirportFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 				{
-				for(Avion avion:avionOnAirArray)
-					{
-					avion.setStop(true);
-					}
-
-				for(Avion avion:avionLandingArray)
-					{
-					avion.setStop(true);
-					}
-				for(Avion avion:avionTermArray)
-					{
-					avion.setStop(true);
-					}
-				for(Avion avion:avionTakeOffArray)
-					{
-					avion.setStop(true);
-					}
-				for(Avion avion:avionOnAirLeaveArray)
-					{
-					avion.setStop(true);
-					}
+				// Les avions s'arrêtent (l'animation se fige)
+				stopAvion(true);
 				}
+
 			});
 
 		start.add(btnStart);
@@ -222,6 +185,36 @@ public class AirportFrame extends JFrame
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Labo 3 - Gestion d'un aéroport");
+		}
+
+	// Stop ou start les avions
+	private void stopAvion(boolean state)
+		{
+		// Parcours de toutes les listes pour démarrer ou arrêter tous les avions de l'applications
+		for(Avion avion:avionOnAirArray)
+			{
+			avion.setStop(state);
+			}
+
+		for(Avion avion:avionLandingArray)
+			{
+			avion.setStop(state);
+			}
+
+		for(Avion avion:avionTermArray)
+			{
+			avion.setStop(state);
+			}
+
+		for(Avion avion:avionTakeOffArray)
+			{
+			avion.setStop(state);
+			}
+
+		for(Avion avion:avionOnAirLeaveArray)
+			{
+			avion.setStop(state);
+			}
 		}
 
 	// (1)
