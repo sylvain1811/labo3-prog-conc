@@ -1,20 +1,18 @@
 
-package airport.com;
+package airport.v2;
 
 import java.util.Random;
-import java.util.concurrent.BlockingQueue;
-//represente l'avion
 
-public class Avion implements Runnable
+public class AvionV2 implements Runnable
 	{
 
-	AirportFrame airportFrame;
+	AirportFrameV2 airportFrame;
 	String codePlane;
-	BlockingQueue<Avion> airArr;
-	BlockingQueue<Avion> tarmacLand;
-	BlockingQueue<Avion> tarmacTakeOff;
-	BlockingQueue<Avion> terminal;
-	BlockingQueue<Avion> airDep;
+	AvionsContainer airArr;
+	AvionsContainer tarmacLand;
+	AvionsContainer tarmacTakeOff;
+	AvionsContainer terminal;
+	AvionsContainer airDep;
 	int nbAvion;
 	int nbPisteArr;
 	int nbPisteDep;
@@ -23,17 +21,17 @@ public class Avion implements Runnable
 
 	boolean stop;
 
-	public Avion(AirportFrame _airportFrame, String _codePlane, BlockingQueue<Avion> _airArr, BlockingQueue<Avion> _tarmacLand, BlockingQueue<Avion> _tarmacTakeOff, BlockingQueue<Avion> _terminal, BlockingQueue<Avion> _airDep, int _nbAvion, int _nbPisteArr, int _nbPisteDep, int _nbPlace)
+	public AvionV2(AirportFrameV2 _airportFrame, String _codePlane, AvionsContainer airArr2, AvionsContainer tarmacLand2, AvionsContainer tarmacTakeOff2, AvionsContainer terminal2, AvionsContainer airDep2, int _nbAvion, int _nbPisteArr, int _nbPisteDep, int _nbPlace)
 		{
 		stop = false;
 		airportFrame = _airportFrame;
 		codePlane = _codePlane;
 
-		airArr = _airArr;
-		tarmacLand = _tarmacLand;
-		tarmacTakeOff = _tarmacTakeOff;
-		terminal = _terminal;
-		airDep = _airDep;
+		airArr = airArr2;
+		tarmacLand = tarmacLand2;
+		tarmacTakeOff = tarmacTakeOff2;
+		terminal = terminal2;
+		airDep = airDep2;
 
 		nbAvion = _nbAvion;
 		nbPisteArr = _nbPisteArr;
@@ -94,16 +92,21 @@ public class Avion implements Runnable
 			}
 		}
 
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+
 	// Vérifier l'état du programme (en pause ou non)
 	private void checkStop()
 		{
 		// Utilisation de la JFrame comme moniteur
-		synchronized (airportFrame)
+		while(stop)
 			{
-			while(stop)
+			synchronized (airportFrame)
 				{
 				try
 					{
+
 					// Si stop est à true, alors on bloque l'avion (wait)
 					airportFrame.wait();
 					}
@@ -113,25 +116,23 @@ public class Avion implements Runnable
 					}
 				}
 			}
+
 		}
 
-	/*------------------------------------------------------------------*\
-	|*							Methodes Private						*|
-	\*------------------------------------------------------------------*/
-
 	// (1)
-	private synchronized void arrive() throws InterruptedException
+	private void arrive() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue d'arrivée
+
+		// On met l'avion dans le container d'arrivée
 		airArr.put(this);
 		// Puis on met à jour la JFrame
 		airportFrame.updateArrive(this);
 		}
 
 	// (2)
-	private synchronized void atterit() throws InterruptedException
+	private void atterit() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue d'atterrissage et on le retire de celle d'arrivée
+		// On met l'avion dans le container d'atterrissage et on le retire de celui d'arrivée
 		tarmacLand.put(this);
 		airArr.remove(this);
 		// Puis on met à jour la JFrame
@@ -139,9 +140,9 @@ public class Avion implements Runnable
 		}
 
 	// (3)
-	private synchronized void parque() throws InterruptedException
+	private void parque() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue du terminal et on le retire de celle d'atterrissage
+		// On met l'avion dans le container du terminal et on le retire de celui d'atterrissage
 		terminal.put(this);
 		tarmacLand.remove(this);
 		// Puis on met à jour la JFrame
@@ -149,9 +150,9 @@ public class Avion implements Runnable
 		}
 
 	// (4)
-	private synchronized void decolle() throws InterruptedException
+	private void decolle() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue du décollage et on le retire de celle du terminal
+		// On met l'avion dans le container du décollage et on le retire de celui du terminal
 		tarmacTakeOff.put(this);
 		terminal.remove(this);
 		// Puis on met à jour la JFrame
@@ -159,9 +160,9 @@ public class Avion implements Runnable
 		}
 
 	// (5)
-	private synchronized void part() throws InterruptedException
+	private void part() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue de air départ et on le retire de celle de décollage
+		// On met l'avion dans le container de air départ et on le retire de celui de décollage
 		airDep.put(this);
 		tarmacTakeOff.remove(this);
 		// Puis on met à jour la JFrame
@@ -176,9 +177,14 @@ public class Avion implements Runnable
 	// Génère un nombre aléatoire pour la représentation d'une activité
 	private long nextRandomTime()
 		{
+		// Animation
+
 		long ret = (long)random.nextInt() % 2000;
 		if (ret < 0) { return ret * (-1) + 1000; }
 		return ret + 1000;
+
+		// Performance test
+		//return 0;
 		}
 
 	/*------------------------------------------------------------------*\

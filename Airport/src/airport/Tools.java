@@ -1,5 +1,5 @@
 
-package airport.com;
+package airport;
 
 import java.awt.Image;
 //gestion de ressources

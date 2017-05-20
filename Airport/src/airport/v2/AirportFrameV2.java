@@ -1,5 +1,5 @@
 
-package airport.com;
+package airport.v2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,17 +17,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class AirportFrame extends JFrame
+import airport.Tools;
+
+public class AirportFrameV2 extends JFrame
 	{
 
 	private static final long serialVersionUID = 1L;
 
 	// liste d'avion à chaque endroits
-	private List<Avion> avionOnAirArray;
-	private List<Avion> avionLandingArray;
-	private List<Avion> avionTermArray;
-	private List<Avion> avionTakeOffArray;
-	private List<Avion> avionOnAirLeaveArray;
+	private List<AvionV2> avionOnAirArray;
+	private List<AvionV2> avionLandingArray;
+	private List<AvionV2> avionTermArray;
+	private List<AvionV2> avionTakeOffArray;
+	private List<AvionV2> avionOnAirLeaveArray;
 
 	// images d'avion
 	private ArrayList<JLabel> listTerm;
@@ -49,7 +51,7 @@ public class AirportFrame extends JFrame
 	private int nbPlace;
 	private int nbAvion;
 
-	public AirportFrame(int _nbPisteArr, int _nbPisteDep, int _nbPlace, int _nbAvion)
+	public AirportFrameV2(int _nbPisteArr, int _nbPisteDep, int _nbPlace, int _nbAvion)
 		{
 
 		nbAvion = _nbAvion;
@@ -57,11 +59,11 @@ public class AirportFrame extends JFrame
 		nbPisteDep = _nbPisteDep;
 		nbPlace = _nbPlace;
 
-		avionOnAirArray = new ArrayList<Avion>();
-		avionLandingArray = new ArrayList<Avion>();
-		avionTermArray = new ArrayList<Avion>();
-		avionTakeOffArray = new ArrayList<Avion>();
-		avionOnAirLeaveArray = new ArrayList<Avion>();
+		avionOnAirArray = new ArrayList<AvionV2>();
+		avionLandingArray = new ArrayList<AvionV2>();
+		avionTermArray = new ArrayList<AvionV2>();
+		avionTakeOffArray = new ArrayList<AvionV2>();
+		avionOnAirLeaveArray = new ArrayList<AvionV2>();
 
 		listArr = new ArrayList<JLabel>();
 		listTerm = new ArrayList<JLabel>();
@@ -191,34 +193,34 @@ public class AirportFrame extends JFrame
 	private void stopAvion(boolean state)
 		{
 		// Parcours de toutes les listes pour démarrer ou arrêter tous les avions de l'applications
-		for(Avion avion:avionOnAirArray)
+		for(AvionV2 avion:avionOnAirArray)
 			{
 			avion.setStop(state);
 			}
 
-		for(Avion avion:avionLandingArray)
+		for(AvionV2 avion:avionLandingArray)
 			{
 			avion.setStop(state);
 			}
 
-		for(Avion avion:avionTermArray)
+		for(AvionV2 avion:avionTermArray)
 			{
 			avion.setStop(state);
 			}
 
-		for(Avion avion:avionTakeOffArray)
+		for(AvionV2 avion:avionTakeOffArray)
 			{
 			avion.setStop(state);
 			}
 
-		for(Avion avion:avionOnAirLeaveArray)
+		for(AvionV2 avion:avionOnAirLeaveArray)
 			{
 			avion.setStop(state);
 			}
 		}
 
 	// (1)
-	public synchronized void updateArrive(Avion avion)
+	public synchronized void updateArrive(AvionV2 avion)
 		{
 		// On ajoute l'avion dans la list d'arrivée (elle est synchronisée avec la blocking queue)
 		avionOnAirArray.add(avion);
@@ -228,7 +230,7 @@ public class AirportFrame extends JFrame
 		}
 
 	// (2)
-	public synchronized void updateAtterrit(Avion avion)
+	public synchronized void updateAtterrit(AvionV2 avion)
 		{
 		// On retire l'avion de la liste d'arrivée pour le mettre dans la liste d'atterrissage (syhchrone avec les blocking queue correspondantes)
 		avionOnAirArray.remove(avion);
@@ -243,7 +245,7 @@ public class AirportFrame extends JFrame
 		}
 
 	// (3)
-	public synchronized void updatePark(Avion avion)
+	public synchronized void updatePark(AvionV2 avion)
 		{
 		// On retire l'avion de la liste d'atterrissage pour le mettre dans la liste du terminal (syhchrone avec les blocking queue correspondantes)
 		avionLandingArray.remove(avion);
@@ -259,7 +261,7 @@ public class AirportFrame extends JFrame
 		}
 
 	// (4)
-	public synchronized void updateDecolle(Avion avion)
+	public synchronized void updateDecolle(AvionV2 avion)
 		{
 		// On retire l'avion de la liste du terminal pour le mettre dans la liste du décollage (syhchrone avec les blocking queue correspondantes)
 		avionTermArray.remove(avion);
@@ -275,7 +277,7 @@ public class AirportFrame extends JFrame
 		}
 
 	// (5)
-	public synchronized void updatePart(Avion avion)
+	public synchronized void updatePart(AvionV2 avion)
 		{
 		// On retire l'avion de la liste du décollage pour le mettre dans la liste de ceux qui partent (syhchrone avec les blocking queue correspondantes)
 		avionTakeOffArray.remove(avion);
