@@ -4,6 +4,8 @@ package airport.com;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +40,19 @@ public class AirportFrame extends JFrame
 	private JLabel nbTakeOffLabel;
 	private JLabel nbOnAirLeaveLabel;
 
+	// Buttons
+	private JButton btnStart;
+	private JButton btnStop;
+
 	private int nbPisteArr;
 	private int nbPisteDep;
 	private int nbPlace;
+	private int nbAvion;
 
 	public AirportFrame(int _nbPisteArr, int _nbPisteDep, int _nbPlace, int _nbAvion)
 		{
 
+		nbAvion = _nbAvion;
 		nbPisteArr = _nbPisteArr;
 		nbPisteDep = _nbPisteDep;
 		nbPlace = _nbPlace;
@@ -140,8 +148,71 @@ public class AirportFrame extends JFrame
 		bouton.setLayout(new GridLayout(1, 2));
 		JPanel start = new JPanel();
 		JPanel stop = new JPanel();
-		start.add(new JButton("Start"));
-		stop.add(new JButton("Stop"));
+		btnStart = new JButton("Start");
+		btnStop = new JButton("Stop");
+
+		btnStart.addActionListener(new ActionListener()
+			{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+				{
+				for(Avion avion:avionOnAirArray)
+					{
+					avion.setStop(false);
+					}
+
+				for(Avion avion:avionLandingArray)
+					{
+					avion.setStop(false);
+					}
+				for(Avion avion:avionTermArray)
+					{
+					avion.setStop(false);
+					}
+				for(Avion avion:avionTakeOffArray)
+					{
+					avion.setStop(false);
+					}
+				for(Avion avion:avionOnAirLeaveArray)
+					{
+					avion.setStop(false);
+					}
+				}
+			});
+
+		btnStop.addActionListener(new ActionListener()
+			{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+				{
+				for(Avion avion:avionOnAirArray)
+					{
+					avion.setStop(true);
+					}
+
+				for(Avion avion:avionLandingArray)
+					{
+					avion.setStop(true);
+					}
+				for(Avion avion:avionTermArray)
+					{
+					avion.setStop(true);
+					}
+				for(Avion avion:avionTakeOffArray)
+					{
+					avion.setStop(true);
+					}
+				for(Avion avion:avionOnAirLeaveArray)
+					{
+					avion.setStop(true);
+					}
+				}
+			});
+
+		start.add(btnStart);
+		stop.add(btnStop);
 
 		bouton.add(start);
 		bouton.add(stop);

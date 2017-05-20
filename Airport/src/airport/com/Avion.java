@@ -19,11 +19,13 @@ public class Avion implements Runnable
 	int nbPisteArr;
 	int nbPisteDep;
 	int nbPlace;
-
 	int position;
+
+	boolean stop;
 
 	public Avion(AirportFrame _airportFrame, String _codePlane, BlockingQueue<Avion> _airArr, BlockingQueue<Avion> _tarmacLand, BlockingQueue<Avion> _tarmacTakeOff, BlockingQueue<Avion> _terminal, BlockingQueue<Avion> _airDep, int _nbAvion, int _nbPisteArr, int _nbPisteDep, int _nbPlace)
 		{
+		stop = false;
 		airportFrame = _airportFrame;
 		codePlane = _codePlane;
 
@@ -39,6 +41,19 @@ public class Avion implements Runnable
 		nbPlace = _nbPlace;
 		}
 
+	public void setStop(boolean stop)
+		{
+		this.stop = stop;
+
+		synchronized (airportFrame)
+			{
+			if (!stop)
+				{
+				airportFrame.notifyAll();
+				}
+			}
+		}
+
 	@Override
 	public void run()
 		{
@@ -48,17 +63,25 @@ public class Avion implements Runnable
 			arrive();
 			Thread.sleep(nextRandomTime());
 
+			checkStop();
+
 			// (2) Puis il atterit sur une piste
 			atterit();
 			Thread.sleep(nextRandomTime());
+
+			checkStop();
 
 			// (3) Puis il se parque
 			parque();
 			Thread.sleep(nextRandomTime());
 
+			checkStop();
+
 			// (4) Et décolle
 			decolle();
 			Thread.sleep(nextRandomTime());
+
+			checkStop();
 
 			// (5) Et fini par partir
 			part();
@@ -66,6 +89,25 @@ public class Avion implements Runnable
 		catch (InterruptedException e)
 			{
 			e.printStackTrace();
+			}
+		}
+
+	// Vérifier l'état du programme (en pause ou non)
+	private void checkStop()
+		{
+		synchronized (airportFrame)
+			{
+			while(stop)
+				{
+				try
+					{
+					airportFrame.wait();
+					}
+				catch (InterruptedException e)
+					{
+					e.printStackTrace();
+					}
+				}
 			}
 		}
 
