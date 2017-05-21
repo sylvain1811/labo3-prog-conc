@@ -1,5 +1,5 @@
 
-package airport.v1;
+package airport.v1.blockingqueue;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -7,6 +7,11 @@ import java.util.concurrent.BlockingQueue;
 import airport.Application;
 import airport.JFrameInput;
 
+/**
+ * Première implémentation de l'application, avec l'utilisation des BlockingQueue.
+ * @author sylvain.renaud
+ *
+ */
 public class ApplicationV1 implements Application
 	{
 
@@ -17,21 +22,15 @@ public class ApplicationV1 implements Application
 
 	public static void main(String[] args)
 		{
+		// Création de l'application et affichage de la JFrame de paramétrages.
 		ApplicationV1 application = new ApplicationV1();
 		new JFrameInput(application);
 		}
 
+	// Démarrage de la simulation, avec les paramètres entrés par l'utilisateur.
 	@Override
 	public void startAnimation(int _nbAvion, int _nbPisteArr, int _nbPisteDep, int _nbPlace)
 		{
-
-		//Static
-		/*
-		int nbAvion = 20; //nombre d'avion
-		int nbPisteArr = 2; //pistes d'atterrisage
-		int nbPisteDep = 3; //pistes de depart
-		int nbPlace = 4; //parking
-		*/
 
 		int nbAvion = _nbAvion; //nombre d'avion
 		int nbPisteArr = _nbPisteArr; //pistes d'atterrisage
@@ -41,16 +40,18 @@ public class ApplicationV1 implements Application
 		// Debut du test de performance
 		long startTime = System.currentTimeMillis();
 
+		// Création de la JFrame pour afficher la simulation.
 		AirportFrameV1 airportFrame = new AirportFrameV1(nbPisteArr, nbPisteDep, nbPlace, nbAvion);
 
+		// BlockingQueue pour chaque état qu'un avion peut avoir.
 		BlockingQueue<AvionV1> airArr = new ArrayBlockingQueue<AvionV1>(nbAvion);
 		BlockingQueue<AvionV1> tarmacLand = new ArrayBlockingQueue<AvionV1>(nbPisteArr);
 		BlockingQueue<AvionV1> tarmacTakeOff = new ArrayBlockingQueue<AvionV1>(nbPisteDep);
 		BlockingQueue<AvionV1> terminal = new ArrayBlockingQueue<AvionV1>(nbPlace);
 		BlockingQueue<AvionV1> airDep = new ArrayBlockingQueue<AvionV1>(nbAvion);
 
+		// Création et démarrages des avions.
 		tabThreadsAvion = new Thread[nbAvion];
-
 		for(int i = 0; i < nbAvion; i++)
 			{
 			AvionV1 avion = new AvionV1(airportFrame, codePlane[i], airArr, tarmacLand, tarmacTakeOff, terminal, airDep, nbAvion, nbPisteArr, nbPisteDep, nbPlace);
@@ -61,7 +62,7 @@ public class ApplicationV1 implements Application
 		airportFrame.setVisible(true);
 		airportFrame.setSize(1300, 700);
 		airportFrame.setLocationRelativeTo(null);
-		//airportFrame.pack();
+		airportFrame.pack();
 
 		// Attendre la fin des thread pour terminer le programme
 		//		for(int i = 0; i < nbAvion; i++)

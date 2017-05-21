@@ -1,28 +1,23 @@
 
-package airport.v2;
+package airport.v2.tampon;
 
 import java.util.Random;
 
+/**
+ * Représente l'avion (version avec Tampon).
+ * @author sylvain.renaud
+ *
+ */
 public class AvionV2 implements Runnable
 	{
 
-	AirportFrameV2 airportFrame;
-	String codePlane;
-	AvionsContainer airArr;
-	AvionsContainer tarmacLand;
-	AvionsContainer tarmacTakeOff;
-	AvionsContainer terminal;
-	AvionsContainer airDep;
-	int nbAvion;
-	int nbPisteArr;
-	int nbPisteDep;
-	int nbPlace;
-	int position;
-
-	boolean stop;
+	/*------------------------------------------------------------------*\
+	|*							Constructeurs							*|
+	\*------------------------------------------------------------------*/
 
 	public AvionV2(AirportFrameV2 _airportFrame, String _codePlane, AvionsContainer airArr2, AvionsContainer tarmacLand2, AvionsContainer tarmacTakeOff2, AvionsContainer terminal2, AvionsContainer airDep2, int _nbAvion, int _nbPisteArr, int _nbPisteDep, int _nbPlace)
 		{
+		// Booléen pour la fonction start/stop.
 		stop = false;
 		airportFrame = _airportFrame;
 		codePlane = _codePlane;
@@ -39,6 +34,10 @@ public class AvionV2 implements Runnable
 		nbPlace = _nbPlace;
 		}
 
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
+
 	// Change l'état du booléen stop, si il est à false, on notifie tous les avions en attente pour les faire redémarrer
 	public void setStop(boolean stop)
 		{
@@ -54,6 +53,7 @@ public class AvionV2 implements Runnable
 			}
 		}
 
+	// Représente le comportement de l'avion.
 	@Override
 	public void run()
 		{
@@ -61,8 +61,10 @@ public class AvionV2 implements Runnable
 			{
 			// (1) L'avion arrive
 			arrive();
+			// Simulation de durée
 			Thread.sleep(nextRandomTime());
 
+			// Check si l'utilisateur a stoppé la sumulation, si oui l'avion reste bloqueé ici jusqu'à ce que l'utilisateur presse sur start.
 			checkStop();
 
 			// (2) Puis il atterit sur une piste
@@ -99,9 +101,9 @@ public class AvionV2 implements Runnable
 	// Vérifier l'état du programme (en pause ou non)
 	private void checkStop()
 		{
-		// Utilisation de la JFrame comme moniteur
 		while(stop)
 			{
+			// Utilisation de la JFrame comme moniteur
 			synchronized (airportFrame)
 				{
 				try
@@ -120,7 +122,7 @@ public class AvionV2 implements Runnable
 		}
 
 	// (1)
-	private void arrive() throws InterruptedException
+	private synchronized void arrive() throws InterruptedException
 		{
 
 		// On met l'avion dans le container d'arrivée
@@ -130,7 +132,7 @@ public class AvionV2 implements Runnable
 		}
 
 	// (2)
-	private void atterit() throws InterruptedException
+	private synchronized void atterit() throws InterruptedException
 		{
 		// On met l'avion dans le container d'atterrissage et on le retire de celui d'arrivée
 		tarmacLand.put(this);
@@ -140,7 +142,7 @@ public class AvionV2 implements Runnable
 		}
 
 	// (3)
-	private void parque() throws InterruptedException
+	private synchronized void parque() throws InterruptedException
 		{
 		// On met l'avion dans le container du terminal et on le retire de celui d'atterrissage
 		terminal.put(this);
@@ -150,7 +152,7 @@ public class AvionV2 implements Runnable
 		}
 
 	// (4)
-	private void decolle() throws InterruptedException
+	private synchronized void decolle() throws InterruptedException
 		{
 		// On met l'avion dans le container du décollage et on le retire de celui du terminal
 		tarmacTakeOff.put(this);
@@ -160,7 +162,7 @@ public class AvionV2 implements Runnable
 		}
 
 	// (5)
-	private void part() throws InterruptedException
+	private synchronized void part() throws InterruptedException
 		{
 		// On met l'avion dans le container de air départ et on le retire de celui de décollage
 		airDep.put(this);
@@ -169,27 +171,42 @@ public class AvionV2 implements Runnable
 		airportFrame.updatePart(this);
 		}
 
+	// Retourne le code de l'avion.
 	public String getCode()
 		{
 		return codePlane;
 		}
 
-	// Génère un nombre aléatoire pour la représentation d'une activité
+	// Génère un nombre aléatoire pour simuler la durée d'une activité
 	private long nextRandomTime()
 		{
-		// Animation
-
+		// En mode animation
 		long ret = (long)random.nextInt() % 2000;
 		if (ret < 0) { return ret * (-1) + 1000; }
 		return ret + 1000;
 
-		// Performance test
+		// Pour les tests de performance, retourne 0.
 		//return 0;
 		}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
+
+	private AirportFrameV2 airportFrame;
+	private String codePlane;
+	private AvionsContainer airArr;
+	private AvionsContainer tarmacLand;
+	private AvionsContainer tarmacTakeOff;
+	private AvionsContainer terminal;
+	private AvionsContainer airDep;
+	private int nbAvion;
+	private int nbPisteArr;
+	private int nbPisteDep;
+	private int nbPlace;
+	private int position;
+
+	boolean stop;
 
 	private static Random random = new Random();
 

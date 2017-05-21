@@ -13,6 +13,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * JFrame de type formulaire pour entrer les paramètres de la simulation.
+ * Si les données entrées sont correct, le bouton start démarre l'animation.
+ * @author sylvain.renaud
+ *
+ */
 public class JFrameInput extends JFrame
 	{
 
@@ -29,18 +35,6 @@ public class JFrameInput extends JFrame
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Methodes Public							*|
-	\*------------------------------------------------------------------*/
-
-	/*------------------------------*\
-	|*				Set				*|
-	\*------------------------------*/
-
-	/*------------------------------*\
-	|*				Get				*|
-	\*------------------------------*/
-
-	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
@@ -49,25 +43,29 @@ public class JFrameInput extends JFrame
 		// JComponent : Instanciation
 		jPanelNbAvion = new JPanel();
 		lblNbAvion = new JLabel("Nb avion");
-		jtfNbAvion = new JTextField();
+		jtfNbAvion = new JTextField("20");
+		jtfNbAvion.selectAll();
 		jPanelNbAvion.add(lblNbAvion);
 		jPanelNbAvion.add(jtfNbAvion);
 
 		jPanelNbPisteAtter = new JPanel();
 		lblNbPisteAtter = new JLabel("Nb PisteAtter");
-		jtfNbPisteAtter = new JTextField();
+		jtfNbPisteAtter = new JTextField("3");
+		jtfNbPisteAtter.selectAll();
 		jPanelNbPisteAtter.add(lblNbPisteAtter);
 		jPanelNbPisteAtter.add(jtfNbPisteAtter);
 
 		jPanelNbPisteDeco = new JPanel();
 		lblNbPisteDeco = new JLabel("Nb PisteDeco");
-		jtfNbPisteDeco = new JTextField();
+		jtfNbPisteDeco = new JTextField("3");
+		jtfNbPisteDeco.selectAll();
 		jPanelNbPisteDeco.add(lblNbPisteDeco);
 		jPanelNbPisteDeco.add(jtfNbPisteDeco);
 
 		jPanelNbPlaceTerm = new JPanel();
 		lblNbPlaceTerm = new JLabel("Nb PlaceTerm");
-		jtfNbPlaceTerm = new JTextField();
+		jtfNbPlaceTerm = new JTextField("4");
+		jtfNbPlaceTerm.selectAll();
 		jPanelNbPlaceTerm.add(lblNbPlaceTerm);
 		jPanelNbPlaceTerm.add(jtfNbPlaceTerm);
 
@@ -90,6 +88,7 @@ public class JFrameInput extends JFrame
 	private void control()
 		{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
 		btnStart.addActionListener(new ActionListener()
 			{
 
@@ -103,12 +102,16 @@ public class JFrameInput extends JFrame
 					int nbPisteDeco = Integer.parseInt(jtfNbPisteDeco.getText());
 					int nbPlaceTerm = Integer.parseInt(jtfNbPlaceTerm.getText());
 
+					// Maximum 50 avions (codePlane.length()).
+					if (nbAvion > 50) { throw new NumberFormatException(); }
+
 					application.startAnimation(nbAvion, nbPisteAtter, nbPisteDeco, nbPlaceTerm);
+					JFrameInput.this.setVisible(false);
 					}
 				catch (NumberFormatException exception)
 					{
 					exception.printStackTrace();
-					JOptionPane.showMessageDialog(JFrameInput.this, "Veuillez entrer des nombres valides", "Attention", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(JFrameInput.this, "Veuillez entrer des nombres valides. Max 50 avions", "Saisie invalide", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			});
@@ -121,6 +124,8 @@ public class JFrameInput extends JFrame
 		jtfNbPisteAtter.setPreferredSize(dimension);
 		jtfNbPisteDeco.setPreferredSize(dimension);
 		jtfNbPlaceTerm.setPreferredSize(dimension);
+
+		setTitle("Paramètres de la simulation");
 		setSize(330, 500);
 		setLocationRelativeTo(null); // frame centrer
 		setVisible(true); // last!
@@ -132,6 +137,7 @@ public class JFrameInput extends JFrame
 
 	// Inputs
 	private Application application;
+
 	// Tools
 	private JPanel jPanelNbAvion;
 	private JPanel jPanelNbPisteAtter;

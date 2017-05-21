@@ -1,5 +1,5 @@
 
-package airport.v1;
+package airport.v1.blockingqueue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,8 +19,17 @@ import javax.swing.SwingConstants;
 
 import airport.Tools;
 
+/**
+ * JFrame pour l'affichage de la simulation. Version avec BlockingQueue.
+ * @author sylvain.renaud
+ *
+ */
 public class AirportFrameV1 extends JFrame
 	{
+
+	/*------------------------------------------------------------------*\
+	|*							Attributs Private						*|
+	\*------------------------------------------------------------------*/
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +59,10 @@ public class AirportFrameV1 extends JFrame
 	private int nbPisteDep;
 	private int nbPlace;
 	private int nbAvion;
+
+	/*------------------------------------------------------------------*\
+	|*							Constructeurs							*|
+	\*------------------------------------------------------------------*/
 
 	public AirportFrameV1(int _nbPisteArr, int _nbPisteDep, int _nbPlace, int _nbAvion)
 		{
@@ -153,29 +166,6 @@ public class AirportFrameV1 extends JFrame
 		btnStart = new JButton("Start");
 		btnStop = new JButton("Stop");
 
-		btnStart.addActionListener(new ActionListener()
-			{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-				{
-				// Redémarrage des avions (l'animation reprend dans l'état où elle s'est arrêtée)
-				stopAvion(false);
-				}
-			});
-
-		btnStop.addActionListener(new ActionListener()
-			{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-				{
-				// Les avions s'arrêtent (l'animation se fige)
-				stopAvion(true);
-				}
-
-			});
-
 		start.add(btnStart);
 		stop.add(btnStop);
 
@@ -187,37 +177,38 @@ public class AirportFrameV1 extends JFrame
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Labo 3 - Gestion d'un aéroport");
+
+		/*------------------------------*\
+		|*	    Actions des boutons		*|
+		\*------------------------------*/
+
+		btnStart.addActionListener(new ActionListener()
+			{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+				{
+				// Redémarrage des avions (la simulation reprend dans l'état où elle s'est arrêtée)
+				stopAvion(false);
+				}
+			});
+
+		btnStop.addActionListener(new ActionListener()
+			{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+				{
+				// Les avions s'arrêtent (la simulation se fige)
+				stopAvion(true);
+				}
+
+			});
 		}
 
-	// Stop ou start les avions
-	private void stopAvion(boolean state)
-		{
-		// Parcours de toutes les listes pour démarrer ou arrêter tous les avions de l'applications
-		for(AvionV1 avion:avionOnAirArray)
-			{
-			avion.setStop(state);
-			}
-
-		for(AvionV1 avion:avionLandingArray)
-			{
-			avion.setStop(state);
-			}
-
-		for(AvionV1 avion:avionTermArray)
-			{
-			avion.setStop(state);
-			}
-
-		for(AvionV1 avion:avionTakeOffArray)
-			{
-			avion.setStop(state);
-			}
-
-		for(AvionV1 avion:avionOnAirLeaveArray)
-			{
-			avion.setStop(state);
-			}
-		}
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
 
 	// (1)
 	public synchronized void updateArrive(AvionV1 avion)
@@ -343,6 +334,36 @@ public class AirportFrameV1 extends JFrame
 				{
 				listArr.get(i).setVisible(false);
 				}
+			}
+		}
+
+	// Stop ou start les avions
+	private void stopAvion(boolean state)
+		{
+		// Parcours de toutes les listes pour démarrer ou arrêter tous les avions de la simulation.
+		for(AvionV1 avion:avionOnAirArray)
+			{
+			avion.setStop(state);
+			}
+
+		for(AvionV1 avion:avionLandingArray)
+			{
+			avion.setStop(state);
+			}
+
+		for(AvionV1 avion:avionTermArray)
+			{
+			avion.setStop(state);
+			}
+
+		for(AvionV1 avion:avionTakeOffArray)
+			{
+			avion.setStop(state);
+			}
+
+		for(AvionV1 avion:avionOnAirLeaveArray)
+			{
+			avion.setStop(state);
 			}
 		}
 	}
