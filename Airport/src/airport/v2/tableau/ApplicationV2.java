@@ -1,6 +1,8 @@
 
 package airport.v2.tableau;
 
+import airport.Tools;
+
 /**
  * Deuxième implémentation de l'application, avec l'utilisation des Tableaux.
  * @author sylvain.renaud
@@ -47,20 +49,23 @@ public class ApplicationV2
 		airportFrame.setVisible(true);
 		airportFrame.setSize(1300, 700);
 		airportFrame.setLocationRelativeTo(null);
-		airportFrame.pack();
 
 		// Attendre la fin des thread pour terminer le programme
-		//				for(int i = 0; i < nbAvion; i++)
-		//					{
-		//					try
-		//						{
-		//						tabThreadsAvion[i].join();
-		//						}
-		//					catch (InterruptedException e)
-		//						{
-		//						e.printStackTrace();
-		//						}
-		//					}
+		// Attendre la fin des thread pour terminer le programme si en mode test
+		if (Tools.isTestMode)
+			{
+			for(int i = 0; i < nbAvion; i++)
+				{
+				try
+					{
+					tabThreadsAvion[i].join();
+					}
+				catch (InterruptedException e)
+					{
+					e.printStackTrace();
+					}
+				}
+			}
 
 		// Test de performance
 		long endTime = System.currentTimeMillis();

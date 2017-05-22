@@ -102,6 +102,7 @@ public class JFrameInput extends JFrame
 		buttonGroup.add(btnTableau);
 
 		checkBoxRandom = new JCheckBox("Durée aléatoire");
+		checkBoxTestMode = new JCheckBox("Mode test");
 
 		btnStart = new JButton("Start");
 		// Layout : Specification
@@ -120,6 +121,7 @@ public class JFrameInput extends JFrame
 		add(btnLinkedList);
 		add(btnTableau);
 		add(checkBoxRandom);
+		add(checkBoxTestMode);
 		add(btnStart);
 		}
 
@@ -127,8 +129,12 @@ public class JFrameInput extends JFrame
 		{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
+
 		btnBlockingQueue.setSelected(true);
+
 		checkBoxRandom.setSelected(true);
+		checkBoxTestMode.setSelected(false);
+
 		btnStart.addActionListener(new ActionListener()
 			{
 
@@ -138,6 +144,8 @@ public class JFrameInput extends JFrame
 				try
 					{
 					Tools.isRandom = checkBoxRandom.isSelected();
+					Tools.isTestMode = checkBoxTestMode.isSelected();
+
 					int nbAvion = Integer.parseInt(jtfNbAvion.getText());
 					int nbPisteAtter = Integer.parseInt(jtfNbPisteAtter.getText());
 					int nbPisteDeco = Integer.parseInt(jtfNbPisteDeco.getText());
@@ -146,6 +154,7 @@ public class JFrameInput extends JFrame
 					// Maximum 50 avions (codePlane.length()).
 					if (nbAvion > 50) { throw new NumberFormatException(); }
 
+					// On démarre l'application avec le type de tampon choisi
 					if (btnBlockingQueue.isSelected())
 						{
 						(new ApplicationV1()).startAnimation(nbAvion, nbPisteAtter, nbPisteDeco, nbPlaceTerm);
@@ -210,6 +219,7 @@ public class JFrameInput extends JFrame
 	private JRadioButton btnTableau;
 
 	private JCheckBox checkBoxRandom;
+	private JCheckBox checkBoxTestMode;
 
 	private JButton btnStart;
 	}

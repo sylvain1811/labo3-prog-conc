@@ -50,5 +50,6 @@ public class Tools
 		}
 
 	public static boolean isRandom = true;
+	public static boolean isTestMode = false;
 	private static Random random = new Random();
 	}

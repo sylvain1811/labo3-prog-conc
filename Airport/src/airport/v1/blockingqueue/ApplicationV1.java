@@ -4,6 +4,8 @@ package airport.v1.blockingqueue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import airport.Tools;
+
 /**
  * Première implémentation de l'application, avec l'utilisation des BlockingQueue.
  * @author sylvain.renaud
@@ -51,20 +53,22 @@ public class ApplicationV1
 		airportFrame.setVisible(true);
 		airportFrame.setSize(1300, 700);
 		airportFrame.setLocationRelativeTo(null);
-		airportFrame.pack();
 
-		// Attendre la fin des thread pour terminer le programme
-		//		for(int i = 0; i < nbAvion; i++)
-		//			{
-		//			try
-		//				{
-		//				tabThreadsAvion[i].join();
-		//				}
-		//			catch (InterruptedException e)
-		//				{
-		//				e.printStackTrace();
-		//				}
-		//			}
+		// Attendre la fin des thread pour terminer le programme si en mode test
+		if (Tools.isTestMode)
+			{
+			for(int i = 0; i < nbAvion; i++)
+				{
+				try
+					{
+					tabThreadsAvion[i].join();
+					}
+				catch (InterruptedException e)
+					{
+					e.printStackTrace();
+					}
+				}
+			}
 
 		// Test de performance
 		long endTime = System.currentTimeMillis();
