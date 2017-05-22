@@ -54,7 +54,7 @@ Pour les ``LinkedList``, la partie concurrente est gérée manuellement à l'aid
 Tests de performance
 ********************
 
-Le tableau suivant représente le temps en millisecondes de l'exécution du simulateur. Les paramètres du simulateur sont : 50 avions, ``sleep`` de 100ms pour représenter la durée de l'action. Ici, les case signifie à la fois le nombre de pistes d'atterrissage, le nombre de places au terminal et le nombre de pistes de décollage.
+Le tableau suivant représente le temps en millisecondes de l'exécution du simulateur. Les paramètres du simulateur sont : 50 avions, ``sleep`` de 100ms pour représenter la durée de l'action. Ici, les case signifie à la fois le nombre de pistes d'atterrissage, le nombre de places au terminal et le nombre de pistes de décollage. Les valeurs inscrites dans ce tableau sont des moyennes calculées à partir de 4 chronométrages.
 
 Tableau récapitulatif
 ---------------------
