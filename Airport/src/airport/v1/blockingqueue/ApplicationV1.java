@@ -4,14 +4,12 @@ package airport.v1.blockingqueue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import airport.Application;
-
 /**
  * Première implémentation de l'application, avec l'utilisation des BlockingQueue.
  * @author sylvain.renaud
  *
  */
-public class ApplicationV1 implements Application
+public class ApplicationV1
 	{
 
 	public static Thread[] tabThreadsAvion;
@@ -20,7 +18,6 @@ public class ApplicationV1 implements Application
 			"094B6", "4709B", "36A84", "085A3", "0718B", "80B21", "0A369", "5290A", "370B4", "021A3", "84A02", "052A6", "B6350", "630B5", "8B903", "1398B", "2693A", "902A6", "51A20", "971A5", "A7891" };
 
 	// Démarrage de la simulation, avec les paramètres entrés par l'utilisateur.
-	@Override
 	public void startAnimation(int _nbAvion, int _nbPisteArr, int _nbPisteDep, int _nbPlace)
 		{
 

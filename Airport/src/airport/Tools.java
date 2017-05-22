@@ -29,7 +29,7 @@ public class Tools
 
 	/**
 	 * Génère un nombre aléatoire pour simuler la durée d'une activité
-	 * Si le paramètre est vrai, alors retourne un long aléatoire, sinon retourne 100.
+	 * Si le paramètre est vrai, alors retourne un long aléatoire ([1000;3000]), sinon retourne 100.
 	 * @param isRandom
 	 * @return
 	 */
@@ -38,13 +38,11 @@ public class Tools
 
 		if (isRandom)
 			{
-			// En mode animation
 			long ret = (long)random.nextInt() % 2000;
 			if (ret < 0) { return ret * (-1) + 1000; }
 			return ret + 1000;
 			}
 		else
-		// En mode test
 			{
 			return 100;
 			}
