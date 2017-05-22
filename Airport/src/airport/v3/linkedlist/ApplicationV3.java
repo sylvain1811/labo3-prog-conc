@@ -1,15 +1,14 @@
 
-package airport.v2.tampon;
+package airport.v3.linkedlist;
 
 import airport.Application;
-import airport.JFrameInput;
 
 /**
  * Deuxième implémentation de l'application, avec l'utilisation des Tampon.
  * @author sylvain.renaud
  *
  */
-public class ApplicationV2 implements Application
+public class ApplicationV3 implements Application
 	{
 
 	public static Thread[] tabThreadsAvion;
@@ -17,12 +16,6 @@ public class ApplicationV2 implements Application
 	public static String[] codePlane = { "3B147", "B3291", "6B239", "B1086", "780B4", "32A64", "17A69", "2A431", "647B8", "349A8", "536B8", "9103A", "9B210", "139A4", "96B01", "207B9", "830B6", "8435A", "7301B", "1076B", "5281B", "8A521", "3B806", "B6842", "B6238", "7B816", "A9437", "849A3",
 			"60B18", "094B6", "4709B", "36A84", "085A3", "0718B", "80B21", "0A369", "5290A", "370B4", "021A3", "84A02", "052A6", "B6350", "630B5", "8B903", "1398B", "2693A", "902A6", "51A20", "971A5", "A7891" };
 
-	public static void main(String[] args)
-		{
-		// Création de l'application et affichage de la JFrame de paramétrages.
-		ApplicationV2 application = new ApplicationV2();
-		new JFrameInput(application);
-		}
 
 	// Démarrage de la simulation, avec les paramètres entrés par l'utilisateur.
 	@Override
@@ -37,20 +30,20 @@ public class ApplicationV2 implements Application
 		long startTime = System.currentTimeMillis();
 
 		// Création de la JFrame pour afficher la simulation.
-		AirportFrameV2 airportFrame = new AirportFrameV2(nbPisteArr, nbPisteDep, nbPlace, nbAvion);
+		AirportFrameV3 airportFrame = new AirportFrameV3(nbPisteArr, nbPisteDep, nbPlace, nbAvion);
 
 		// Tampon pour chaque état qu'un avion peut avoir.
-		AvionsContainer airArr = new AvionsContainer(nbAvion);
-		AvionsContainer tarmacLand = new AvionsContainer(nbPisteArr);
-		AvionsContainer tarmacTakeOff = new AvionsContainer(nbPisteDep);
-		AvionsContainer terminal = new AvionsContainer(nbPlace);
-		AvionsContainer airDep = new AvionsContainer(nbAvion);
+		AvionsList airArr = new AvionsList(nbAvion);
+		AvionsList tarmacLand = new AvionsList(nbPisteArr);
+		AvionsList tarmacTakeOff = new AvionsList(nbPisteDep);
+		AvionsList terminal = new AvionsList(nbPlace);
+		AvionsList airDep = new AvionsList(nbAvion);
 
 		// Création et démarrages des avions.
 		tabThreadsAvion = new Thread[nbAvion];
 		for(int i = 0; i < nbAvion; i++)
 			{
-			AvionV2 avion = new AvionV2(airportFrame, codePlane[i], airArr, tarmacLand, tarmacTakeOff, terminal, airDep, nbAvion, nbPisteArr, nbPisteDep, nbPlace);
+			AvionV3 avion = new AvionV3(airportFrame, codePlane[i], airArr, tarmacLand, tarmacTakeOff, terminal, airDep, nbAvion, nbPisteArr, nbPisteDep, nbPlace);
 			tabThreadsAvion[i] = new Thread(avion);
 			tabThreadsAvion[i].start();
 			}
@@ -61,17 +54,17 @@ public class ApplicationV2 implements Application
 		airportFrame.pack();
 
 		// Attendre la fin des thread pour terminer le programme
-		//		for(int i = 0; i < nbAvion; i++)
-		//			{
-		//			try
-		//				{
-		//				tabThreadsAvion[i].join();
-		//				}
-		//			catch (InterruptedException e)
-		//				{
-		//				e.printStackTrace();
-		//				}
-		//			}
+		//				for(int i = 0; i < nbAvion; i++)
+		//					{
+		//					try
+		//						{
+		//						tabThreadsAvion[i].join();
+		//						}
+		//					catch (InterruptedException e)
+		//						{
+		//						e.printStackTrace();
+		//						}
+		//					}
 
 		// Test de performance
 		long endTime = System.currentTimeMillis();

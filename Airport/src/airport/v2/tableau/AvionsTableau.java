@@ -1,18 +1,18 @@
 
-package airport.v2.tampon;
+package airport.v2.tableau;
 
 /**
  * Remplace les BlockingQueue pour la partie tests de performance du labo. Utilisation d'un tableau d'avions.
  * @author sylvain.renaud
  */
-public class AvionsContainer
+public class AvionsTableau
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public AvionsContainer(int size)
+	public AvionsTableau(int size)
 		{
 		this.size = size;
 		tabAvion = new AvionV2[size];

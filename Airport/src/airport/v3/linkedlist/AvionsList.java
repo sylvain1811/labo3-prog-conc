@@ -1,5 +1,5 @@
 
-package airport.v2.tampon;
+package airport.v3.linkedlist;
 
 import java.util.LinkedList;
 
@@ -25,7 +25,7 @@ public class AvionsList
 	\*------------------------------------------------------------------*/
 
 	// Ajout d'un avion dans le tableau
-	public void put(AvionV2 avion)
+	public void put(AvionV3 avion)
 		{
 		synchronized (monitor)
 			{
@@ -49,7 +49,7 @@ public class AvionsList
 		}
 
 	// On retire un avion de la liste.
-	public void remove(AvionV2 avion)
+	public void remove(AvionV3 avion)
 		{
 		synchronized (monitor)
 			{
@@ -64,7 +64,7 @@ public class AvionsList
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
-	private LinkedList<AvionV2> listAvion;
+	private LinkedList<AvionV3> listAvion;
 	private int size;
 
 	// Cet objet sert de moniteur

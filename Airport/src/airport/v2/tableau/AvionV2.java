@@ -1,7 +1,7 @@
 
-package airport.v2.tampon;
+package airport.v2.tableau;
 
-import java.util.Random;
+import airport.Tools;
 
 /**
  * Représente l'avion (version avec Tampon).
@@ -15,7 +15,7 @@ public class AvionV2 implements Runnable
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public AvionV2(AirportFrameV2 _airportFrame, String _codePlane, AvionsContainer airArr2, AvionsContainer tarmacLand2, AvionsContainer tarmacTakeOff2, AvionsContainer terminal2, AvionsContainer airDep2, int _nbAvion, int _nbPisteArr, int _nbPisteDep, int _nbPlace)
+	public AvionV2(AirportFrameV2 _airportFrame, String _codePlane, AvionsTableau airArr2, AvionsTableau tarmacLand2, AvionsTableau tarmacTakeOff2, AvionsTableau terminal2, AvionsTableau airDep2, int _nbAvion, int _nbPisteArr, int _nbPisteDep, int _nbPlace)
 		{
 		// Booléen pour la fonction start/stop.
 		stop = false;
@@ -62,26 +62,26 @@ public class AvionV2 implements Runnable
 			// (1) L'avion arrive
 			arrive();
 			// Simulation de durée
-			Thread.sleep(nextRandomTime());
+			Thread.sleep(Tools.getDuree());
 
 			// Check si l'utilisateur a stoppé la sumulation, si oui l'avion reste bloqueé ici jusqu'à ce que l'utilisateur presse sur start.
 			checkStop();
 
 			// (2) Puis il atterit sur une piste
 			atterit();
-			Thread.sleep(nextRandomTime());
+			Thread.sleep(Tools.getDuree());
 
 			checkStop();
 
 			// (3) Puis il se parque
 			parque();
-			Thread.sleep(nextRandomTime());
+			Thread.sleep(Tools.getDuree());
 
 			checkStop();
 
 			// (4) Et décolle
 			decolle();
-			Thread.sleep(nextRandomTime());
+			Thread.sleep(Tools.getDuree());
 
 			checkStop();
 
@@ -177,29 +177,17 @@ public class AvionV2 implements Runnable
 		return codePlane;
 		}
 
-	// Génère un nombre aléatoire pour simuler la durée d'une activité
-	private long nextRandomTime()
-		{
-		// En mode animation
-		long ret = (long)random.nextInt() % 2000;
-		if (ret < 0) { return ret * (-1) + 1000; }
-		return ret + 1000;
-
-		// Pour les tests de performance, retourne 0.
-		//return 0;
-		}
-
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
 	private AirportFrameV2 airportFrame;
 	private String codePlane;
-	private AvionsContainer airArr;
-	private AvionsContainer tarmacLand;
-	private AvionsContainer tarmacTakeOff;
-	private AvionsContainer terminal;
-	private AvionsContainer airDep;
+	private AvionsTableau airArr;
+	private AvionsTableau tarmacLand;
+	private AvionsTableau tarmacTakeOff;
+	private AvionsTableau terminal;
+	private AvionsTableau airDep;
 	private int nbAvion;
 	private int nbPisteArr;
 	private int nbPisteDep;
@@ -207,7 +195,5 @@ public class AvionV2 implements Runnable
 	private int position;
 
 	boolean stop;
-
-	private static Random random = new Random();
 
 	}

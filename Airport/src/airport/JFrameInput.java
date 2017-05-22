@@ -6,12 +6,19 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import airport.v1.blockingqueue.ApplicationV1;
+import airport.v2.tableau.ApplicationV2;
+import airport.v3.linkedlist.ApplicationV3;
 
 /**
  * JFrame de type formulaire pour entrer les paramètres de la simulation.
@@ -26,13 +33,29 @@ public class JFrameInput extends JFrame
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JFrameInput(Application application)
+	public JFrameInput()
 		{
-		this.application = application;
 		geometry();
 		control();
 		appearance();
 		}
+
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
+
+	/*------------------------------*\
+	|*			  Static			*|
+	\*------------------------------*/
+
+	public static void main(String[] args)
+		{
+		new JFrameInput();
+		}
+
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
@@ -69,11 +92,22 @@ public class JFrameInput extends JFrame
 		jPanelNbPlaceTerm.add(lblNbPlaceTerm);
 		jPanelNbPlaceTerm.add(jtfNbPlaceTerm);
 
+		buttonGroup = new ButtonGroup();
+		btnBlockingQueue = new JRadioButton("BlockingQueue");
+		btnLinkedList = new JRadioButton("LinkedList");
+		btnTableau = new JRadioButton("Tableau");
+
+		buttonGroup.add(btnBlockingQueue);
+		buttonGroup.add(btnLinkedList);
+		buttonGroup.add(btnTableau);
+
+		checkBoxRandom = new JCheckBox("Durée aléatoire");
+
 		btnStart = new JButton("Start");
 		// Layout : Specification
 			{
 			FlowLayout flowLayout = new FlowLayout(FlowLayout.CENTER);
-			flowLayout.setVgap(50);
+			flowLayout.setVgap(20);
 			setLayout(flowLayout);
 			}
 
@@ -82,6 +116,10 @@ public class JFrameInput extends JFrame
 		add(jPanelNbPisteAtter);
 		add(jPanelNbPlaceTerm);
 		add(jPanelNbPisteDeco);
+		add(btnBlockingQueue);
+		add(btnLinkedList);
+		add(btnTableau);
+		add(checkBoxRandom);
 		add(btnStart);
 		}
 
@@ -89,6 +127,8 @@ public class JFrameInput extends JFrame
 		{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
+		btnBlockingQueue.setSelected(true);
+		checkBoxRandom.setSelected(true);
 		btnStart.addActionListener(new ActionListener()
 			{
 
@@ -97,6 +137,7 @@ public class JFrameInput extends JFrame
 				{
 				try
 					{
+					Tools.isRandom = checkBoxRandom.isSelected();
 					int nbAvion = Integer.parseInt(jtfNbAvion.getText());
 					int nbPisteAtter = Integer.parseInt(jtfNbPisteAtter.getText());
 					int nbPisteDeco = Integer.parseInt(jtfNbPisteDeco.getText());
@@ -105,7 +146,19 @@ public class JFrameInput extends JFrame
 					// Maximum 50 avions (codePlane.length()).
 					if (nbAvion > 50) { throw new NumberFormatException(); }
 
-					application.startAnimation(nbAvion, nbPisteAtter, nbPisteDeco, nbPlaceTerm);
+					if (btnBlockingQueue.isSelected())
+						{
+						(new ApplicationV1()).startAnimation(nbAvion, nbPisteAtter, nbPisteDeco, nbPlaceTerm);
+						}
+					else if (btnLinkedList.isSelected())
+						{
+						(new ApplicationV3()).startAnimation(nbAvion, nbPisteAtter, nbPisteDeco, nbPlaceTerm);
+						}
+					else if (btnTableau.isSelected())
+						{
+						(new ApplicationV2()).startAnimation(nbAvion, nbPisteAtter, nbPisteDeco, nbPlaceTerm);
+						}
+
 					JFrameInput.this.setVisible(false);
 					}
 				catch (NumberFormatException exception)
@@ -126,7 +179,7 @@ public class JFrameInput extends JFrame
 		jtfNbPlaceTerm.setPreferredSize(dimension);
 
 		setTitle("Paramètres de la simulation");
-		setSize(330, 500);
+		setSize(330, 400);
 		setLocationRelativeTo(null); // frame centrer
 		setVisible(true); // last!
 		}
@@ -134,9 +187,6 @@ public class JFrameInput extends JFrame
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-
-	// Inputs
-	private Application application;
 
 	// Tools
 	private JPanel jPanelNbAvion;
@@ -153,6 +203,13 @@ public class JFrameInput extends JFrame
 	private JTextField jtfNbPisteAtter;
 	private JTextField jtfNbPisteDeco;
 	private JTextField jtfNbPlaceTerm;
+
+	private ButtonGroup buttonGroup;
+	private JRadioButton btnBlockingQueue;
+	private JRadioButton btnLinkedList;
+	private JRadioButton btnTableau;
+
+	private JCheckBox checkBoxRandom;
 
 	private JButton btnStart;
 	}

@@ -1,5 +1,5 @@
 
-package airport.v2.tampon;
+package airport.v2.tableau;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
