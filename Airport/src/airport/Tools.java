@@ -28,8 +28,8 @@ public class Tools
 		}
 
 	/**
-	 * Génère un nombre aléatoire pour simuler la durée d'une activité
-	 * Si le paramètre est vrai, alors retourne un long aléatoire ([1000;3000]), sinon retourne 100.
+	 * Genere un nombre aleatoire pour simuler la duree d'une activite
+	 * Si le parametre est vrai, alors retourne un long aleatoire ([1000;3000]), sinon retourne 100.
 	 * @param isRandom
 	 * @return
 	 */

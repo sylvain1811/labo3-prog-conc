@@ -5,13 +5,13 @@ import java.util.LinkedList;
 
 /**
  * Remplace les BlockingQueue pour la partie tests de performance du labo. Utilisation d'une LinkedList.
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  */
 public class AvionsList
 	{
 
 	/*------------------------------------------------------------------*\
-	|*							Constructeurs							*|
+	|*							Constructeurs			                          				*|
 	\*------------------------------------------------------------------*/
 
 	public AvionsList(int size)
@@ -21,7 +21,7 @@ public class AvionsList
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Methodes Public							*|
+	|*							Methodes Public					                        		*|
 	\*------------------------------------------------------------------*/
 
 	// Ajout d'un avion dans le tableau
@@ -42,7 +42,7 @@ public class AvionsList
 					}
 				}
 
-			// Quand une place est libre, on place l'avion à cette place.
+			// Quand une place est libre, on place l'avion ï¿½ cette place.
 			listAvion.add(avion);
 			}
 
@@ -55,13 +55,13 @@ public class AvionsList
 			{
 			listAvion.remove(avion);
 
-			// On signale qu'une place s'est libérée.
+			// On signale qu'une place s'est libï¿½rï¿½e.
 			monitor.notifyAll();
 			}
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Attributs Private						*|
+	|*							Attributs Private					                         	*|
 	\*------------------------------------------------------------------*/
 
 	private LinkedList<AvionV3> listAvion;

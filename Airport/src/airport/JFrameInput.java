@@ -21,9 +21,9 @@ import airport.v2.tableau.ApplicationV2;
 import airport.v3.linkedlist.ApplicationV3;
 
 /**
- * JFrame de type formulaire pour entrer les paramètres de la simulation.
- * Si les données entrées sont correct, le bouton start démarre l'animation.
- * @author sylvain.renaud
+ * JFrame de type formulaire pour entrer les paramï¿½tres de la simulation.
+ * Si les donnï¿½es entrï¿½es sont correct, le bouton start dï¿½marre l'animation.
+ * @author sylvain.renaud dany.chea
  *
  */
 public class JFrameInput extends JFrame
@@ -101,7 +101,7 @@ public class JFrameInput extends JFrame
 		buttonGroup.add(btnLinkedList);
 		buttonGroup.add(btnTableau);
 
-		checkBoxRandom = new JCheckBox("Durée aléatoire");
+		checkBoxRandom = new JCheckBox("Durï¿½e alï¿½atoire");
 		checkBoxTestMode = new JCheckBox("Mode test");
 
 		btnStart = new JButton("Start");
@@ -154,7 +154,7 @@ public class JFrameInput extends JFrame
 					// Maximum 50 avions (codePlane.length()).
 					if (nbAvion > 50) { throw new NumberFormatException(); }
 
-					// On démarre l'application avec le type de tampon choisi
+					// On dï¿½marre l'application avec le type de tampon choisi
 					if (btnBlockingQueue.isSelected())
 						{
 						(new ApplicationV1()).startAnimation(nbAvion, nbPisteAtter, nbPisteDeco, nbPlaceTerm);
@@ -187,7 +187,7 @@ public class JFrameInput extends JFrame
 		jtfNbPisteDeco.setPreferredSize(dimension);
 		jtfNbPlaceTerm.setPreferredSize(dimension);
 
-		setTitle("Paramètres de la simulation");
+		setTitle("Paramï¿½tres de la simulation");
 		setSize(330, 400);
 		setLocationRelativeTo(null); // frame centrer
 		setVisible(true); // last!

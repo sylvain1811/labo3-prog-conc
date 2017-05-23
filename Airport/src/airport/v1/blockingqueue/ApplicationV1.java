@@ -7,8 +7,8 @@ import java.util.concurrent.BlockingQueue;
 import airport.Tools;
 
 /**
- * Première implémentation de l'application, avec l'utilisation des BlockingQueue.
- * @author sylvain.renaud
+ * Premiere implementation de l'application, avec l'utilisation des BlockingQueue.
+ * @author sylvain.renaud dany.chea
  *
  */
 public class ApplicationV1
@@ -19,7 +19,7 @@ public class ApplicationV1
 	static String[] codePlane = { "3B147", "B3291", "6B239", "B1086", "780B4", "32A64", "17A69", "2A431", "647B8", "349A8", "536B8", "9103A", "9B210", "139A4", "96B01", "207B9", "830B6", "8435A", "7301B", "1076B", "5281B", "8A521", "3B806", "B6842", "B6238", "7B816", "A9437", "849A3", "60B18",
 			"094B6", "4709B", "36A84", "085A3", "0718B", "80B21", "0A369", "5290A", "370B4", "021A3", "84A02", "052A6", "B6350", "630B5", "8B903", "1398B", "2693A", "902A6", "51A20", "971A5", "A7891" };
 
-	// Démarrage de la simulation, avec les paramètres entrés par l'utilisateur.
+	// Demarrage de la simulation, avec les parametres entres par l'utilisateur.
 	public void startAnimation(int _nbAvion, int _nbPisteArr, int _nbPisteDep, int _nbPlace)
 		{
 
@@ -31,17 +31,17 @@ public class ApplicationV1
 		// Debut du test de performance
 		long startTime = System.currentTimeMillis();
 
-		// Création de la JFrame pour afficher la simulation.
+		// Crï¿½ation de la JFrame pour afficher la simulation.
 		AirportFrameV1 airportFrame = new AirportFrameV1(nbPisteArr, nbPisteDep, nbPlace, nbAvion);
 
-		// BlockingQueue pour chaque état qu'un avion peut avoir.
+		// BlockingQueue pour chaque etat qu'un avion peut avoir.
 		BlockingQueue<AvionV1> airArr = new ArrayBlockingQueue<AvionV1>(nbAvion);
 		BlockingQueue<AvionV1> tarmacLand = new ArrayBlockingQueue<AvionV1>(nbPisteArr);
 		BlockingQueue<AvionV1> tarmacTakeOff = new ArrayBlockingQueue<AvionV1>(nbPisteDep);
 		BlockingQueue<AvionV1> terminal = new ArrayBlockingQueue<AvionV1>(nbPlace);
 		BlockingQueue<AvionV1> airDep = new ArrayBlockingQueue<AvionV1>(nbAvion);
 
-		// Création et démarrages des avions.
+		// Creation et demarrages des avions.
 		tabThreadsAvion = new Thread[nbAvion];
 		for(int i = 0; i < nbAvion; i++)
 			{

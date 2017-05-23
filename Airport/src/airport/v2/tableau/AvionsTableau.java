@@ -3,13 +3,13 @@ package airport.v2.tableau;
 
 /**
  * Remplace les BlockingQueue pour la partie tests de performance du labo. Utilisation d'un tableau d'avions.
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  */
 public class AvionsTableau
 	{
 
 	/*------------------------------------------------------------------*\
-	|*							Constructeurs							*|
+	|*							Constructeurs				    					            			*|
 	\*------------------------------------------------------------------*/
 
 	public AvionsTableau(int size)
@@ -20,7 +20,7 @@ public class AvionsTableau
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Methodes Public							*|
+	|*							Methodes Public						                         	*|
 	\*------------------------------------------------------------------*/
 
 	// Ajout d'un avion dans le tableau
@@ -42,7 +42,7 @@ public class AvionsTableau
 					}
 				}
 
-			// Quand une place est libre, on place l'avion à cette place.
+			// Quand une place est libre, on place l'avion a cette place.
 			int i = 0;
 			while(i < size)
 				{
@@ -64,7 +64,7 @@ public class AvionsTableau
 			{
 			int i = 0;
 
-			// Parcours du tableau pour trouver l'instance de l'avion à retirer.
+			// Parcours du tableau pour trouver l'instance de l'avion a retirer.
 			while(i < size)
 				{
 				if (tabAvion[i] == avion)
@@ -76,13 +76,13 @@ public class AvionsTableau
 				i++;
 				}
 
-			// On signale qu'une place s'est libérée.
+			// On signale qu'une place s'est liberee.
 			monitor.notifyAll();
 			}
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Attributs Private						*|
+	|*							Attributs Private					                         	*|
 	\*------------------------------------------------------------------*/
 
 	private AvionV2[] tabAvion;

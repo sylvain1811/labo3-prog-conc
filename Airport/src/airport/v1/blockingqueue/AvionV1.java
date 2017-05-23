@@ -6,21 +6,21 @@ import java.util.concurrent.BlockingQueue;
 import airport.Tools;
 
 /**
- * Représente l'avion (version avec BlockingQueue).
- * @author sylvain.renaud
+ * Represente l'avion (version avec BlockingQueue).
+ * @author sylvain.renaud dany.chea
  *
  */
 public class AvionV1 implements Runnable
 	{
 
 	/*------------------------------------------------------------------*\
-	|*							Constructeurs							*|
+	|*							Constructeurs					                          		*|
 	\*------------------------------------------------------------------*/
 
 	public AvionV1(AirportFrameV1 _airportFrame, String _codePlane, BlockingQueue<AvionV1> _airArr, BlockingQueue<AvionV1> _tarmacLand, BlockingQueue<AvionV1> _tarmacTakeOff, BlockingQueue<AvionV1> _terminal, BlockingQueue<AvionV1> _airDep, int _nbAvion, int _nbPisteArr, int _nbPisteDep,
 			int _nbPlace)
 		{
-		// Booléen pour la fonction start/stop.
+		// Booleen pour la fonction start/stop.
 		stop = false;
 
 		airportFrame = _airportFrame;
@@ -39,10 +39,10 @@ public class AvionV1 implements Runnable
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Methodes Public							*|
+	|*							Methodes Public						                         	*|
 	\*------------------------------------------------------------------*/
 
-	// Change l'état du booléen stop, si il est à false, on notifie tous les avions en attente pour les faire redémarrer
+	// Change l'etat du booleen stop, si il est a false, on notifie tous les avions en attente pour les faire redemarrer
 	public void setStop(boolean stop)
 		{
 		this.stop = stop;
@@ -57,7 +57,7 @@ public class AvionV1 implements Runnable
 			}
 		}
 
-	// Représente le comportement de l'avion.
+	// Represente le comportement de l'avion.
 	@Override
 	public void run()
 		{
@@ -65,10 +65,10 @@ public class AvionV1 implements Runnable
 			{
 			// (1) L'avion arrive
 			arrive();
-			// Simulation de durée
+			// Simulation de durï¿½e
 			Thread.sleep(Tools.getDuree());
 
-			// Check si l'utilisateur a stoppé la sumulation, si oui l'avion reste bloqueé ici jusqu'à ce que l'utilisateur presse sur start.
+			// Check si l'utilisateur a stoppe la simulation, si oui l'avion reste bloquee ici jusqu'a ce que l'utilisateur presse sur start.
 			checkStop();
 
 			// (2) Puis il atterit sur une piste
@@ -83,7 +83,7 @@ public class AvionV1 implements Runnable
 
 			checkStop();
 
-			// (4) Et décolle
+			// (4) Et dï¿½colle
 			decolle();
 			Thread.sleep(Tools.getDuree());
 
@@ -99,10 +99,10 @@ public class AvionV1 implements Runnable
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Methodes Private						*|
+	|*							Methodes Private			                        			*|
 	\*------------------------------------------------------------------*/
 
-	// Vérifier l'état de la simulation (en pause ou non). Si il est en pause on fait attendre l'avion.
+	// Verifier l'etat de la simulation (en pause ou non). Si il est en pause on fait attendre l'avion.
 	private void checkStop()
 		{
 		while(stop)
@@ -112,7 +112,7 @@ public class AvionV1 implements Runnable
 				{
 				try
 					{
-					// Si stop est à true, alors on bloque l'avion (wait)
+					// Si stop est ï¿½ true, alors on bloque l'avion (wait)
 					airportFrame.wait();
 					}
 				catch (InterruptedException e)
@@ -126,19 +126,19 @@ public class AvionV1 implements Runnable
 	// (1)
 	private synchronized void arrive() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue d'arrivée
+		// On met l'avion dans la blocking queue d'arrivee
 		airArr.put(this);
-		// Puis on met à jour la JFrame
+		// Puis on met a jour la JFrame
 		airportFrame.updateArrive(this);
 		}
 
 	// (2)
 	private synchronized void atterit() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue d'atterrissage et on le retire de celle d'arrivée
+		// On met l'avion dans la blocking queue d'atterrissage et on le retire de celle d'arrivï¿½e
 		tarmacLand.put(this);
 		airArr.remove(this);
-		// Puis on met à jour la JFrame
+		// Puis on met ï¿½ jour la JFrame
 		airportFrame.updateAtterrit(this);
 		}
 
@@ -148,27 +148,27 @@ public class AvionV1 implements Runnable
 		// On met l'avion dans la blocking queue du terminal et on le retire de celle d'atterrissage
 		terminal.put(this);
 		tarmacLand.remove(this);
-		// Puis on met à jour la JFrame
+		// Puis on met a jour la JFrame
 		airportFrame.updatePark(this);
 		}
 
 	// (4)
 	private synchronized void decolle() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue du décollage et on le retire de celle du terminal
+		// On met l'avion dans la blocking queue du decollage et on le retire de celle du terminal
 		tarmacTakeOff.put(this);
 		terminal.remove(this);
-		// Puis on met à jour la JFrame
+		// Puis on met a jour la JFrame
 		airportFrame.updateDecolle(this);
 		}
 
 	// (5)
 	private synchronized void part() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue de air départ et on le retire de celle de décollage
+		// On met l'avion dans la blocking queue de air depart et on le retire de celle de decollage
 		airDep.put(this);
 		tarmacTakeOff.remove(this);
-		// Puis on met à jour la JFrame
+		// Puis on met a jour la JFrame
 		airportFrame.updatePart(this);
 		}
 
@@ -179,7 +179,7 @@ public class AvionV1 implements Runnable
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Attributs Private						*|
+	|*							Attributs Private					                        	*|
 	\*------------------------------------------------------------------*/
 
 	private AirportFrameV1 airportFrame;
