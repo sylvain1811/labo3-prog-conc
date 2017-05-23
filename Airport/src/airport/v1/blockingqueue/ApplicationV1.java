@@ -31,7 +31,7 @@ public class ApplicationV1
 		// Debut du test de performance
 		long startTime = System.currentTimeMillis();
 
-		// Cr�ation de la JFrame pour afficher la simulation.
+		// Creation de la JFrame pour afficher la simulation.
 		AirportFrameV1 airportFrame = new AirportFrameV1(nbPisteArr, nbPisteDep, nbPlace, nbAvion);
 
 		// BlockingQueue pour chaque etat qu'un avion peut avoir.

@@ -42,7 +42,7 @@ public class AvionsList
 					}
 				}
 
-			// Quand une place est libre, on place l'avion � cette place.
+			// Quand une place est libre, on place l'avion a cette place.
 			listAvion.add(avion);
 			}
 
@@ -55,7 +55,7 @@ public class AvionsList
 			{
 			listAvion.remove(avion);
 
-			// On signale qu'une place s'est lib�r�e.
+			// On signale qu'une place s'est liberee.
 			monitor.notifyAll();
 			}
 		}

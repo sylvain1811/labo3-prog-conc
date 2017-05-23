@@ -33,7 +33,7 @@ public class AirportFrameV3 extends JFrame
 
 	private static final long serialVersionUID = 1L;
 
-	// liste d'avion � chaque endroits
+	// liste d'avion a chaque endroit
 	private List<AvionV3> avionOnAirArray;
 	private List<AvionV3> avionLandingArray;
 	private List<AvionV3> avionTermArray;
@@ -188,7 +188,7 @@ public class AirportFrameV3 extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 				{
-				// Red�marrage des avions (la simulation reprend dans l'�tat o� elle s'est arr�t�e)
+				// Red�marrage des avions (la simulation reprend dans l'etat ou elle s'est arretee)
 				stopAvion(false);
 				}
 			});
@@ -199,7 +199,7 @@ public class AirportFrameV3 extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 				{
-				// Les avions s'arr�tent (la simulation se fige)
+				// Les avions s'arretent (la simulation se fige)
 				stopAvion(true);
 				}
 
@@ -213,25 +213,25 @@ public class AirportFrameV3 extends JFrame
 	// (1)
 	public synchronized void updateArrive(AvionV3 avion)
 		{
-		// On ajoute l'avion dans la list d'arriv�e (elle est synchronis�e avec la blocking queue)
+		// On ajoute l'avion dans la list d'arrivee (elle est synchronisee avec la blocking queue)
 		avionOnAirArray.add(avion);
 
-		// On met � jour le compteur
+		// On met a jour le compteur
 		nbOnAirLabel.setText("nb avion en air (arrive) : " + avionOnAirArray.size());
 		}
 
 	// (2)
 	public synchronized void updateAtterrit(AvionV3 avion)
 		{
-		// On retire l'avion de la liste d'arriv�e pour le mettre dans la liste d'atterrissage (syhchrone avec les blocking queue correspondantes)
+		// On retire l'avion de la liste d'arrivee pour le mettre dans la liste d'atterrissage (syhchrone avec les blocking queue correspondantes)
 		avionOnAirArray.remove(avion);
 		avionLandingArray.add(avion);
 
-		// On met � jour les compteurs
+		// On met a jour les compteurs
 		nbLandingLabel.setText("nb avion en approche : " + avionLandingArray.size());
 		nbOnAirLabel.setText("nb avion en air (arrive) : " + avionOnAirArray.size());
 
-		// On met � jour les images des avions entrain d'atterrir
+		// On met a jour les images des avions entrain d'atterrir
 		updateLandingLabel();
 		}
 
@@ -242,11 +242,11 @@ public class AirportFrameV3 extends JFrame
 		avionLandingArray.remove(avion);
 		avionTermArray.add(avion);
 
-		// On met � jour les compteurs
+		// On met a jour les compteurs
 		nbLandingLabel.setText("nb avion en approche : " + avionLandingArray.size());
 		nbTermLabel.setText("nb avion au terminal : " + avionTermArray.size());
 
-		// On mets � jour les images des avions entrain d'atterrir et ceux qui se garent
+		// On mets a jour les images des avions entrain d'atterrir et ceux qui se garent
 		updateLandingLabel();
 		updateTerminalLabel();
 		}
@@ -254,15 +254,15 @@ public class AirportFrameV3 extends JFrame
 	// (4)
 	public synchronized void updateDecolle(AvionV3 avion)
 		{
-		// On retire l'avion de la liste du terminal pour le mettre dans la liste du d�collage (syhchrone avec les blocking queue correspondantes)
+		// On retire l'avion de la liste du terminal pour le mettre dans la liste du decollage (syhchrone avec les blocking queue correspondantes)
 		avionTermArray.remove(avion);
 		avionTakeOffArray.add(avion);
 
-		// On met � jour les compteurs
+		// On met a jour les compteurs
 		nbTermLabel.setText("nb avion au terminal : " + avionTermArray.size());
-		nbTakeOffLabel.setText("nb avion au d�part : " + avionTakeOffArray.size());
+		nbTakeOffLabel.setText("nb avion au depart : " + avionTakeOffArray.size());
 
-		// On mets � jour les images des avions parqu�s et ceux qui d�collent
+		// On met a jour les images des avions parques et ceux qui decollent
 		updateTerminalLabel();
 		updateTakeOfLabel();
 		}
@@ -270,15 +270,15 @@ public class AirportFrameV3 extends JFrame
 	// (5)
 	public synchronized void updatePart(AvionV3 avion)
 		{
-		// On retire l'avion de la liste du d�collage pour le mettre dans la liste de ceux qui partent (syhchrone avec les blocking queue correspondantes)
+		// On retire l'avion de la liste du decollage pour le mettre dans la liste de ceux qui partent (syhchrone avec les blocking queue correspondantes)
 		avionTakeOffArray.remove(avion);
 		avionOnAirLeaveArray.add(avion);
 
-		// On met � jour les compteurs
-		nbTakeOffLabel.setText("nb avion au d�part : " + avionTakeOffArray.size());
+		// On met a jour les compteurs
+		nbTakeOffLabel.setText("nb avion au depart : " + avionTakeOffArray.size());
 		nbOnAirLeaveLabel.setText("nb avion en air (depart) : " + avionOnAirLeaveArray.size());
 
-		// On met � jour les images des avions qui d�collent
+		// On met a jour les images des avions qui decollent
 		updateTakeOfLabel();
 		}
 
@@ -340,7 +340,7 @@ public class AirportFrameV3 extends JFrame
 	// Stop ou start les avions
 	private void stopAvion(boolean state)
 		{
-		// Parcours de toutes les listes pour d�marrer ou arr�ter tous les avions de la simulation.
+		// Parcours de toutes les listes pour demarrer ou arreter tous les avions de la simulation.
 		for(AvionV3 avion:avionOnAirArray)
 			{
 			avion.setStop(state);

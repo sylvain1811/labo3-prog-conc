@@ -83,7 +83,7 @@ public class AvionV1 implements Runnable
 
 			checkStop();
 
-			// (4) Et d�colle
+			// (4) Et decolle
 			decolle();
 			Thread.sleep(Tools.getDuree());
 
@@ -112,7 +112,7 @@ public class AvionV1 implements Runnable
 				{
 				try
 					{
-					// Si stop est � true, alors on bloque l'avion (wait)
+					// Si stop est a true, alors on bloque l'avion (wait)
 					airportFrame.wait();
 					}
 				catch (InterruptedException e)
@@ -135,10 +135,10 @@ public class AvionV1 implements Runnable
 	// (2)
 	private synchronized void atterit() throws InterruptedException
 		{
-		// On met l'avion dans la blocking queue d'atterrissage et on le retire de celle d'arriv�e
+		// On met l'avion dans la blocking queue d'atterrissage et on le retire de celle d'arrivee
 		tarmacLand.put(this);
 		airArr.remove(this);
-		// Puis on met � jour la JFrame
+		// Puis on met a jour la JFrame
 		airportFrame.updateAtterrit(this);
 		}
 

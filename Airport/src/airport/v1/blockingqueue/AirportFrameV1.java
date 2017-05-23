@@ -28,7 +28,7 @@ public class AirportFrameV1 extends JFrame
 	{
 
 	/*------------------------------------------------------------------*\
-	|*							Attributs Private						*|
+	|*							Attributs Private																		*|
 	\*------------------------------------------------------------------*/
 
 	private static final long serialVersionUID = 1L;
@@ -61,7 +61,7 @@ public class AirportFrameV1 extends JFrame
 	private int nbAvion;
 
 	/*------------------------------------------------------------------*\
-	|*							Constructeurs							*|
+	|*							Constructeurs						                           	*|
 	\*------------------------------------------------------------------*/
 
 	public AirportFrameV1(int _nbPisteArr, int _nbPisteDep, int _nbPlace, int _nbAvion)
@@ -179,7 +179,7 @@ public class AirportFrameV1 extends JFrame
 		this.setTitle("Labo 3 - Gestion d'un a�roport");
 
 		/*------------------------------*\
-		|*	    Actions des boutons		*|
+		|*	    Actions des boutons	  	*|
 		\*------------------------------*/
 
 		btnStart.addActionListener(new ActionListener()
@@ -207,7 +207,7 @@ public class AirportFrameV1 extends JFrame
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Methodes Public							*|
+	|*							Methodes Public					                         		*|
 	\*------------------------------------------------------------------*/
 
 	// (1)
@@ -283,7 +283,7 @@ public class AirportFrameV1 extends JFrame
 		}
 
 	/*------------------------------------------------------------------*\
-	|*							Methodes Private						*|
+	|*							Methodes Private				                         		*|
 	\*------------------------------------------------------------------*/
 
 	// On met x images de TakeOf visible, avec x le nombre d'avion dans la liste takeOf
