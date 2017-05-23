@@ -21,7 +21,7 @@ import airport.Tools;
 
 /**
  * JFrame pour l'affichage de la simulation. Version avec BlockingQueue.
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  *
  */
 public class AirportFrameV1 extends JFrame

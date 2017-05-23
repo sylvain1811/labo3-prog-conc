@@ -5,7 +5,7 @@ import airport.Tools;
 
 /**
  * Représente l'avion (version avec Tampon).
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  *
  */
 public class AvionV2 implements Runnable

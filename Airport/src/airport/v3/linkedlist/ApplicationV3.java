@@ -5,7 +5,7 @@ import airport.Tools;
 
 /**
  * Deuxième implémentation de l'application, avec l'utilisation des LinkedList.
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  *
  */
 public class ApplicationV3

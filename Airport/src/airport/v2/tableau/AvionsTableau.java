@@ -3,7 +3,7 @@ package airport.v2.tableau;
 
 /**
  * Remplace les BlockingQueue pour la partie tests de performance du labo. Utilisation d'un tableau d'avions.
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  */
 public class AvionsTableau
 	{

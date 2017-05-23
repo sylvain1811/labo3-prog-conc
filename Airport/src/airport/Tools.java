@@ -7,6 +7,11 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Classe Tools
+ * @author sylvain.renaud dany.chea
+ *
+ */
 public class Tools
 	{
 
@@ -31,7 +36,6 @@ public class Tools
 	 * Génère un nombre aléatoire pour simuler la durée d'une activité
 	 * Si le paramètre est vrai, alors retourne un long aléatoire ([1000;3000]), sinon retourne 100.
 	 * @param isRandom
-	 * @return
 	 */
 	public static long getDuree()
 		{

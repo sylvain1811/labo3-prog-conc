@@ -8,7 +8,7 @@ import airport.Tools;
 
 /**
  * Première implémentation de l'application, avec l'utilisation des BlockingQueue.
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  *
  */
 public class ApplicationV1

@@ -7,7 +7,7 @@ import airport.Tools;
 
 /**
  * Représente l'avion (version avec BlockingQueue).
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  *
  */
 public class AvionV1 implements Runnable

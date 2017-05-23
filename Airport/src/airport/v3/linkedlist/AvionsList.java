@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 /**
  * Remplace les BlockingQueue pour la partie tests de performance du labo. Utilisation d'une LinkedList.
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  */
 public class AvionsList
 	{

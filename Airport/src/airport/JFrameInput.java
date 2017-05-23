@@ -23,7 +23,7 @@ import airport.v3.linkedlist.ApplicationV3;
 /**
  * JFrame de type formulaire pour entrer les paramètres de la simulation.
  * Si les données entrées sont correct, le bouton start démarre l'animation.
- * @author sylvain.renaud
+ * @author sylvain.renaud dany.chea
  *
  */
 public class JFrameInput extends JFrame
