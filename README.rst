@@ -71,6 +71,12 @@ Tableau récapitulatif
 
 Nous observons que pour 1 et 8 cases, les ``BlockingQueue`` sont plus performantes. Avec 4 cases, l'implémentation avec les ``Tableaux`` est meilleure.
 
+******************************
+Vérification du fonctionnement
+******************************
+
+Pour vérifier le fonctionnement de la simulation, nous avons visualisé les codes des avions à chaque étapes et procéder à de relevés du nombre d'avions à chaque étape. Nous pouvons affirmer que chaque avions passe par toutes les étapes. Chaque avion attend sur son prédécesseur en cas de pénurie de place à sa destination (sur une piste ou dans le terminal). Le nombre d'avions au départ est le même que celui à l'arrivée. Ces vérifications ont été réalisées pour chaque implémentation du tampon.
+
 *******
 Sources
 *******
