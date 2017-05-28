@@ -72,6 +72,12 @@ Tableau récapitulatif
 Nous observons que pour 1 et 8 cases, les ``BlockingQueue`` sont plus performantes. Avec 4 cases, l'implémentation avec les ``Tableaux`` est meilleure.
 
 *******
+Sources
+*******
+
+GitHub : https://github.com/sylvain1811/labo3-prog-conc
+
+*******
 Crédits
 *******
 
